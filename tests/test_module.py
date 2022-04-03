@@ -1,9 +1,9 @@
 import unittest
 
-import stactools.ephemeral
+import stactools.esa_worldcover
 
 
 class TestModule(unittest.TestCase):
 
     def test_version(self):
-        self.assertIsNotNone(stactools.ephemeral.__version__)
+        self.assertIsNotNone(stactools.esa_worldcover.__version__)
