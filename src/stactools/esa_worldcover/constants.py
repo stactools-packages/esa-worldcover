@@ -3,11 +3,44 @@ from typing import Any, Dict, List
 
 from pystac import Link, Provider, ProviderRole
 
-LICENSE = "CC-BY-4.0"
-LICENSE_LINK = Link(
-    rel="license",
-    target="https://creativecommons.org/licenses/by/4.0/",
-    title="Creative Commons Attribution 4.0 International License")
+COLLECTION = {
+    "title": "",
+    "description": "",
+    "license": "CC-BY-4.0",
+    "links": [
+        Link(rel="license",
+             target="https://creativecommons.org/licenses/by/4.0/",
+             title="Creative Commons Attribution 4.0 International License"),
+        Link(rel="cite-as",
+             target="https://doi.org/10.5281/zenodo.5571936",
+             title="ESA WorldCover 10m 2020 v100",
+             extra_fields={
+                 "copyright": ("Copyright ESA WorldCover project 2020 / "
+                 "Contains modified Copernicus Sentinel data (2020) processed "
+                 "by ESA WorldCover consortium")})
+    ],
+    "keywords": ["Sentinel, ESA, Satellite, Global, Classification"],
+    "providers": [
+        Provider(
+            name="ESA WorldCover Consortium",
+            description=(
+                "The WorldCover product is developed by a consortium led by VITO "
+                "Remote Sensing together with partners Brockmann Consult, CS SI, "
+                "Gamma Remote Sensing AG, IIASA and Wageningen University"),
+            roles=[ProviderRole.PROCESSOR],
+            url="https://worldcover2020.esa.int/"),
+        Provider(name="ESA",
+                roles=[
+                    ProviderRole.LICENSOR, ProviderRole.PRODUCER,
+                    ProviderRole.HOST
+                ],
+                url="https://esa-worldcover.org/en")
+    ],
+    "extent": {
+        "spatial": {}
+    }
+}
+
 DOI = "10.5281/zenodo.5571936"
 CITATION = (
     "Zanaga, D., Van De Kerchove, R., De Keersmaecker, W., Souverijns, N., "
@@ -16,33 +49,8 @@ CITATION = (
     "S., Herold, M., Li, Linlin, Tsendbazar, N.E., Ramoino, F., Arino, O., "
     "2021. ESA WorldCover 10m 2020 v100. https://doi.org/10.5281/zenodo.5571936"
 )
-CITATION_LINK = Link(
-    rel="cite-as",
-    target="https://doi.org/10.5281/zenodo.5571936",
-    title="ESA WorldCover 10m 2020 v100",
-    extra_fields={
-        "copyright":
-        ("Copyright ESA WorldCover project 2020 / Contains modified "
-         "Copernicus Sentinel data (2020) processed by ESA WorldCover "
-         "consortium")
-    })
-PROVIDERS = [
-    Provider(
-        name="ESA WorldCover Consortium",
-        description=(
-            "The WorldCover product is developed by a consortium led by VITO "
-            "Remote Sensing together with partners Brockmann Consult, CS SI, "
-            "Gamma Remote Sensing AG, IIASA and Wageningen University"),
-        roles=[ProviderRole.PROCESSOR],
-        url="https://worldcover2020.esa.int/"),
-    Provider(name="ESA",
-             roles=[
-                 ProviderRole.LICENSOR, ProviderRole.PRODUCER,
-                 ProviderRole.HOST
-             ],
-             url="https://esa-worldcover.org/en")
-]
-KEYWORDS = ["Sentinel, ESA, Satellite, Global, Classification"]
+
+
 
 DESCRIPTION = "ESA WorldCover product at 10m resolution for year 2020"
 # Per the discussion in

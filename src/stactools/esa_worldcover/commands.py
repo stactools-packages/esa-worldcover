@@ -1,4 +1,5 @@
 import logging
+import os
 
 import click
 
@@ -12,7 +13,7 @@ def create_esaworldcover_command(cli):
 
     @cli.group(
         "esaworldcover",
-        short_help=("Commands for working with stactools-esa-worldcover"),
+        short_help=("Commands for working with ESA 10m 2020 WorldCover"),
     )
     def esaworldcover():
         pass
@@ -36,20 +37,26 @@ def create_esaworldcover_command(cli):
 
     #     return None
 
-    @esaworldcover.command("create-item", short_help="Create a STAC item")
-    @click.argument("source")
-    @click.argument("destination")
-    def create_item_command(source: str, destination: str):
-        """Creates a STAC Item
+    @esaworldcover.command("create-item",
+                           short_help=(
+                               "Create a STAC Item from an ESA WorldCover Map "
+                               "COG file."))
+    @click.argument("INFILE")
+    @click.argument("OUTDIR")
+    def create_item_command(infile: str, outdir: str) -> None:
+        """Creates a STAC Item for a 3x3 degree tile of the ESA 10m WorldCover
+        classification product.
 
+        \b
         Args:
-            source (str): HREF of the Asset associated with the Item
-            destination (str): An HREF for the STAC Collection
+            infile (str): HREF of the classification map COG.
+            outdir (str): Directory that will contain the STAC Item.
         """
-        item = stac.create_item(source)
-
-        item.save_object(dest_href=destination)
-
-        return None
+        item = stac.create_item(infile)
+        item_path = os.path.join(outdir, f"{item.id}.json")
+        item.set_self_href(item_path)
+        item.make_asset_hrefs_relative()
+        item.validate()
+        item.save_object()
 
     return esaworldcover

@@ -5,13 +5,11 @@ from typing import Optional
 
 import rasterio
 import shapely
-from pystac import Asset, Item, MediaType
+from pystac import Asset, Collection, Item, MediaType
 from pystac.extensions.projection import ProjectionExtension
 from pystac.extensions.raster import RasterBand, RasterExtension
 from pystac.utils import str_to_datetime
 from stactools.core.io import ReadHrefModifier
-from stactools.core.utils import antimeridian
-from stactools.core.utils.antimeridian import Strategy
 
 from stactools.esa_worldcover import constants
 
@@ -19,22 +17,19 @@ logger = logging.getLogger(__name__)
 
 
 def create_item(map_href: str,
-                antimeridian_strategy: Strategy = Strategy.SPLIT,
                 read_href_modifier: Optional[ReadHrefModifier] = None) -> Item:
-    """Create a STAC Item for a 3x3 degree tile of the ESA 10m WorldCover
+    """Create a STAC Item for a 3x3 degree COG tile of the ESA 10m WorldCover
     classification product.
+
+    Expects an input quality COG to exist alongside the classificaton map COG.
 
     Args:
         map_href (str): An href to a COG containing a tile of classication data.
-        antimeridian_strategy (Antimeridian): Either SPLIT the Item geometry on
-            +/-180 longitude or NORMALIZE geometries so all longitudes are
-            either positive or negative.
         read_href_modifier (Callable[[str], str]): An optional function to
             modify the MTL and USGS STAC hrefs (e.g. to add a token to a url).
     Returns:
         Item: STAC Item object representing the worldcover tile
     """
-
     base_href = "_".join(map_href.split('_')[:-1])
     qua_href = f"{base_href}_InputQuality.tif"
 
@@ -77,8 +72,6 @@ def create_item(map_href: str,
     item_proj = ProjectionExtension.ext(item, add_if_missing=True)
     item_proj.epsg = constants.EPSG
 
-    antimeridian.fix_item(item, antimeridian_strategy)
-
     # --Map asset--
     map_asset = Asset(href=map_href, roles=["data"])
     map_asset.title = constants.MAP_TITLE
@@ -91,6 +84,7 @@ def create_item(map_href: str,
     map_proj = ProjectionExtension.ext(map_asset, add_if_missing=True)
     map_proj.transform = map_transform
     map_proj.shape = map_shape
+
     map_raster = RasterExtension.ext(map_asset, add_if_missing=True)
     map_raster.bands = [RasterBand.create(**constants.MAP_RASTER)]
 
@@ -109,12 +103,30 @@ def create_item(map_href: str,
     qua_proj = ProjectionExtension.ext(qua_asset, add_if_missing=True)
     qua_proj.transform = qua_transform
     qua_proj.shape = qua_shape
+    
     qua_raster = RasterExtension.ext(qua_asset, add_if_missing=True)
     qua_raster.bands = [
         RasterBand.create(**band) for band in constants.QUALITY_RASTER
     ]
 
     return item
+
+
+def create_collection(collection_id: str) -> Collection:
+    """Creates a STAC Collection for the 2020 ESA 10m WorldCover classification
+    product.
+
+    Args:
+        collection_id (str): Desired ID for the STAC Collection.
+    Returns:
+        Collection: The created STAC Collection
+    """
+    collection = Collection(id=collection_id,
+                            title=constants.tit)
+
+
+
+
 
 
 # def create_collection() -> Collection:
