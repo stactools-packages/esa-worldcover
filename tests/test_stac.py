@@ -31,3 +31,8 @@ class StacTest(unittest.TestCase):
 
         # Validate
         item.validate()
+
+    # def test_create_collection(self):
+    #     collection = stac.create_collection("esa-worldcover")
+    #     self.assertEqual(collection.id, "test")
+    #     # collection.validate()

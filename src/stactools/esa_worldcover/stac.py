@@ -6,8 +6,10 @@ from typing import Optional
 import rasterio
 import shapely
 from pystac import Asset, Collection, Item, MediaType
+from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ProjectionExtension
 from pystac.extensions.raster import RasterBand, RasterExtension
+from pystac.extensions.scientific import ScientificExtension
 from pystac.utils import str_to_datetime
 from stactools.core.io import ReadHrefModifier
 
@@ -57,7 +59,7 @@ def create_item(map_href: str,
                 bbox=bbox,
                 datetime=datetime.now(),
                 properties={})
-    item.common_metadata.description = constants.DESCRIPTION
+    item.common_metadata.description = constants.ITEM_DESCRIPTION
     item.common_metadata.created = datetime.now(tz=timezone.utc)
     item.common_metadata.mission = constants.MISSION
     item.common_metadata.platform = constants.PLATFORM
@@ -88,7 +90,7 @@ def create_item(map_href: str,
     map_raster = RasterExtension.ext(map_asset, add_if_missing=True)
     map_raster.bands = [RasterBand.create(**constants.MAP_RASTER)]
 
-    map_asset.extra_fields = {"classification:classes": constants.MAP_CLASSES}
+    map_asset.extra_fields["classification:classes"] = constants.MAP_CLASSES
     item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
     # --Input quality asset--
@@ -103,7 +105,7 @@ def create_item(map_href: str,
     qua_proj = ProjectionExtension.ext(qua_asset, add_if_missing=True)
     qua_proj.transform = qua_transform
     qua_proj.shape = qua_shape
-    
+
     qua_raster = RasterExtension.ext(qua_asset, add_if_missing=True)
     qua_raster.bands = [
         RasterBand.create(**band) for band in constants.QUALITY_RASTER
@@ -119,46 +121,32 @@ def create_collection(collection_id: str) -> Collection:
     Args:
         collection_id (str): Desired ID for the STAC Collection.
     Returns:
-        Collection: The created STAC Collection
+        Collection: The created STAC Collection.
     """
     collection = Collection(id=collection_id,
-                            title=constants.tit)
+                            title=constants.COLLECTION_TITLE,
+                            description=constants.COLLECTION_DESCRIPTION,
+                            license=constants.LICENSE,
+                            keywords=constants.KEYWORDS,
+                            providers=constants.PROVIDERS,
+                            extent=constants.EXTENT,
+                            summaries=constants.SUMMARIES)
 
+    scientific = ScientificExtension.ext(collection, add_if_missing=True)
+    scientific.doi = constants.DATA_DOI
+    scientific.citation = constants.DATA_CITATION
 
+    item_assets = ItemAssetsExtension.ext(collection, add_if_missing=True)
+    item_assets.item_assets = constants.ITEM_ASSETS
 
+    RasterExtension.add_to(collection)
+    collection.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
+    collection.remove_links("cite-as")  # we need to add extra information
+    collection.add_links([constants.DATA_DOI_LINK, constants.LICENSE_LINK])
 
+    return collection
 
-# def create_collection() -> Collection:
-#     """Create a STAC Collection
-
-#     This function includes logic to extract all relevant metadata from
-#     an asset describing the STAC collection and/or metadata coded into an
-#     accompanying constants.py file.
-
-#     See `Collection<https://pystac.readthedocs.io/en/latest/api.html#collection>`_.
-
-#     Returns:
-#         Collection: STAC Collection object
-#     """
-#     providers = [
-#         Provider(
-#             name="The OS Community",
-#             roles=[
-#                 ProviderRole.PRODUCER, ProviderRole.PROCESSOR,
-#                 ProviderRole.HOST
-#             ],
-#             url="https://github.com/stac-utils/stactools",
-#         )
-#     ]
-
-#     # Time must be in UTC
-#     demo_time = datetime.now(tz=timezone.utc)
-
-#     extent = Extent(
-#         SpatialExtent([[-180., 90., 180., -90.]]),
-#         TemporalExtent([demo_time, None]),
-#     )
 
 #     collection = Collection(
 #         id="my-collection-id",
@@ -169,5 +157,3 @@ def create_collection(collection_id: str) -> Collection:
 #         extent=extent,
 #         catalog_type=CatalogType.RELATIVE_PUBLISHED,
 #     )
-
-#     return collection

@@ -4,7 +4,7 @@
   "id": "esa_worldcover_10m_2020_v100_n66e177",
   "properties": {
     "description": "ESA WorldCover product at 10m resolution for year 2020",
-    "created": "2022-04-04T00:36:04.463519Z",
+    "created": "2022-04-04T12:38:29.322297Z",
     "mission": "Sentinel-1, Sentinel-2",
     "platform": "Sentinel-1A, Sentinel-1B, Sentinel-2A, Sentinel-2B",
     "instruments": [
@@ -58,6 +58,27 @@
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Land Cover Classes",
       "description": "Discrete classification according to the Land Cover Classification System scheme developed by the United Nations Food and Agriculture Organization",
+      "created": "2021-10-12T16:51:26.705020Z",
+      "proj:transform": [
+        8.333333333333333e-05,
+        0.0,
+        177.0,
+        0.0,
+        -8.333333333333333e-05,
+        69.0
+      ],
+      "proj:shape": [
+        36000,
+        36000
+      ],
+      "raster:bands": [
+        {
+          "nodata": 0,
+          "sampling": "area",
+          "data_type": "uint16",
+          "spatial_resolution": 10
+        }
+      ],
       "classification:classes": [
         {
           "value": 10,

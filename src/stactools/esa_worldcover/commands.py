@@ -37,10 +37,10 @@ def create_esaworldcover_command(cli):
 
     #     return None
 
-    @esaworldcover.command("create-item",
-                           short_help=(
-                               "Create a STAC Item from an ESA WorldCover Map "
-                               "COG file."))
+    @esaworldcover.command(
+        "create-item",
+        short_help=("Create a STAC Item from an ESA WorldCover Map "
+                    "COG file."))
     @click.argument("INFILE")
     @click.argument("OUTDIR")
     def create_item_command(infile: str, outdir: str) -> None:
