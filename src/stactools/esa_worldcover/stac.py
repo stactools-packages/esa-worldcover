@@ -57,25 +57,22 @@ def create_item(map_href: str,
     item = Item(id=os.path.basename(base_href).lower(),
                 geometry=geometry,
                 bbox=bbox,
-                datetime=datetime.now(),
+                datetime=constants.START_TIME,
                 properties={})
     item.common_metadata.description = constants.ITEM_DESCRIPTION
     item.common_metadata.created = datetime.now(tz=timezone.utc)
     item.common_metadata.mission = constants.MISSION
     item.common_metadata.platform = constants.PLATFORM
     item.common_metadata.instruments = constants.INSTRUMENTS
-    item.datetime = constants.START_TIME
     item.common_metadata.start_datetime = constants.START_TIME
     item.common_metadata.end_datetime = constants.END_TIME
     item.properties["esa_worldcover:product_tile"] = map_tags["product_tile"]
-    item.properties["esa_worldcover:product_version"] = map_tags[
-        "product_version"]
 
     item_proj = ProjectionExtension.ext(item, add_if_missing=True)
     item_proj.epsg = constants.EPSG
 
     # --Map asset--
-    map_asset = Asset(href=map_href, roles=["data"])
+    map_asset = Asset(href=map_href, roles=constants.MAP_ROLES)
     map_asset.title = constants.MAP_TITLE
     map_asset.description = constants.MAP_DESCRIPTION
     map_asset.media_type = MediaType.COG
@@ -88,13 +85,15 @@ def create_item(map_href: str,
     map_proj.shape = map_shape
 
     map_raster = RasterExtension.ext(map_asset, add_if_missing=True)
-    map_raster.bands = [RasterBand.create(**constants.MAP_RASTER)]
+    map_raster.bands = [
+        RasterBand.create(**band) for band in constants.MAP_RASTER
+    ]
 
     map_asset.extra_fields["classification:classes"] = constants.MAP_CLASSES
     item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
     # --Input quality asset--
-    qua_asset = Asset(href=qua_href, roles=["metadata"])
+    qua_asset = Asset(href=qua_href, roles=constants.QUALITY_ROLES)
     qua_asset.title = constants.QUALITY_TITLE
     qua_asset.description = constants.QUALITY_DESCRIPTION
     qua_asset.media_type = MediaType.COG
@@ -111,6 +110,8 @@ def create_item(map_href: str,
         RasterBand.create(**band) for band in constants.QUALITY_RASTER
     ]
 
+    item.validate()
+
     return item
 
 
@@ -123,14 +124,18 @@ def create_collection(collection_id: str) -> Collection:
     Returns:
         Collection: The created STAC Collection.
     """
-    collection = Collection(id=collection_id,
-                            title=constants.COLLECTION_TITLE,
-                            description=constants.COLLECTION_DESCRIPTION,
-                            license=constants.LICENSE,
-                            keywords=constants.KEYWORDS,
-                            providers=constants.PROVIDERS,
-                            extent=constants.EXTENT,
-                            summaries=constants.SUMMARIES)
+    collection = Collection(
+        id=collection_id,
+        title=constants.COLLECTION_TITLE,
+        description=constants.COLLECTION_DESCRIPTION,
+        license=constants.LICENSE,
+        keywords=constants.KEYWORDS,
+        providers=constants.PROVIDERS,
+        extent=constants.EXTENT,
+        summaries=constants.SUMMARIES,
+        extra_fields={
+            "esa_worldcover:product_version": constants.PRODUCT_VERSION
+        })
 
     scientific = ScientificExtension.ext(collection, add_if_missing=True)
     scientific.doi = constants.DATA_DOI
@@ -146,14 +151,3 @@ def create_collection(collection_id: str) -> Collection:
     collection.add_links([constants.DATA_DOI_LINK, constants.LICENSE_LINK])
 
     return collection
-
-
-#     collection = Collection(
-#         id="my-collection-id",
-#         title="A dummy STAC Collection",
-#         description="Used for demonstration purposes",
-#         license="CC-0",
-#         providers=providers,
-#         extent=extent,
-#         catalog_type=CatalogType.RELATIVE_PUBLISHED,
-#     )

@@ -1,10 +1,8 @@
 import stactools.core
 
-# from stactools.esa_worldcover.stac import create_collection, create_item
-from stactools.esa_worldcover.stac import create_item
+from stactools.esa_worldcover.stac import create_collection, create_item
 
-# __all__ = ['create_collection', 'create_item']
-__all__ = ['create_item']
+__all__ = ['create_collection', 'create_item']
 
 stactools.core.use_fsspec()
 

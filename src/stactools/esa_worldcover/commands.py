@@ -2,13 +2,15 @@ import logging
 import os
 
 import click
+from click import Command, Group
+from pystac import CatalogType
 
 from stactools.esa_worldcover import stac
 
 logger = logging.getLogger(__name__)
 
 
-def create_esaworldcover_command(cli):
+def create_esaworldcover_command(cli: Group) -> Command:
     """Creates the stactools-esa-worldcover command line utility."""
 
     @cli.group(
@@ -18,24 +20,39 @@ def create_esaworldcover_command(cli):
     def esaworldcover():
         pass
 
-    # @esaworldcover.command(
-    #     "create-collection",
-    #     short_help="Creates a STAC collection",
-    # )
-    # @click.argument("destination")
-    # def create_collection_command(destination: str):
-    #     """Creates a STAC Collection
+    @esaworldcover.command(
+        "create-collection",
+        short_help="Creates a STAC collection of ESA WorldCover product tiles.",
+    )
+    @click.argument("INFILE")
+    @click.argument("OUTDIR")
+    @click.option("-i",
+                  "--id",
+                  default="esa-worldcover",
+                  show_default=True,
+                  help="collection id string")
+    def create_collection_command(infile: str, outdir: str, id: str) -> None:
+        """Creates a STAC Collection for Items defined by the hrefs in INFILE"
 
-    #     Args:
-    #         destination (str): An HREF for the Collection JSON
-    #     """
-    #     collection = stac.create_collection()
+        \b
+        Args:
+            infile (str): Text file containing one href per line. The hrefs
+                should point to ESA WorldCover 3x3 degree tile Map COGs.
+            outdir (str): Directory that will contain the collection.
+            id (str): Collection id. Defaults to "esa-worldcover".
+        """
+        with open(infile) as file:
+            hrefs = [line.strip() for line in file.readlines()]
 
-    #     collection.set_self_href(destination)
-
-    #     collection.save_object()
-
-    #     return None
+        collection = stac.create_collection(id)
+        collection.set_self_href(os.path.join(outdir, "collection.json"))
+        collection.catalog_type = CatalogType.SELF_CONTAINED
+        for href in hrefs:
+            item = stac.create_item(href)
+            collection.add_item(item)
+        collection.make_all_asset_hrefs_relative()
+        collection.validate_all()
+        collection.save()
 
     @esaworldcover.command(
         "create-item",

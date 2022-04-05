@@ -1,10 +1,10 @@
 {
   "type": "Feature",
   "stac_version": "1.0.0",
-  "id": "esa_worldcover_10m_2020_v100_n66w180",
+  "id": "esa_worldcover_10m_2020_v100_n27w099",
   "properties": {
     "description": "ESA WorldCover product at 10m resolution for year 2020",
-    "created": "2022-04-04T12:38:39.395776Z",
+    "created": "2022-04-05T13:06:28.654439Z",
     "mission": "Sentinel-1, Sentinel-2",
     "platform": "Sentinel-1A, Sentinel-1B, Sentinel-2A, Sentinel-2B",
     "instruments": [
@@ -13,8 +13,7 @@
     ],
     "start_datetime": "2020-01-01T00:00:00Z",
     "end_datetime": "2020-12-31T23:59:59Z",
-    "esa_worldcover:product_tile": "N66W180",
-    "esa_worldcover:product_version": "V1.0.0",
+    "esa_worldcover:product_tile": "N27W099",
     "proj:epsg": 4326,
     "datetime": "2020-01-01T00:00:00Z"
   },
@@ -23,38 +22,51 @@
     "coordinates": [
       [
         [
-          -177.0,
-          66.0
+          -96.0,
+          27.0
         ],
         [
-          -177.0,
-          69.0
+          -96.0,
+          30.0
         ],
         [
-          -180.0,
-          69.0
+          -99.0,
+          30.0
         ],
         [
-          -180.0,
-          66.0
+          -99.0,
+          27.0
         ],
         [
-          -177.0,
-          66.0
+          -96.0,
+          27.0
         ]
       ]
     ]
   },
   "links": [
     {
-      "rel": "self",
-      "href": "/Users/pjh/dev/esa-worldcover/examples/esa_worldcover_10m_2020_v100_n66w180.json",
-      "type": "application/json"
+      "rel": "root",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "ESA WorldCover 2020"
+    },
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "ESA WorldCover 2020"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "ESA WorldCover 2020"
     }
   ],
   "assets": {
     "map": {
-      "href": "../../../data/esa-worldcover/ESA_WORLDCOVER_10M_2020_V100/MAP/ESA_WorldCover_10m_2020_v100_N66W180_Map/ESA_WorldCover_10m_2020_v100_N66W180_Map.tif",
+      "href": "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_Map.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Land Cover Classes",
       "description": "Discrete classification according to the Land Cover Classification System scheme developed by the United Nations Food and Agriculture Organization",
@@ -62,10 +74,10 @@
       "proj:transform": [
         8.333333333333333e-05,
         0.0,
-        -180.0,
+        -99.0,
         0.0,
         -8.333333333333333e-05,
-        69.0
+        30.0
       ],
       "proj:shape": [
         36000,
@@ -141,7 +153,7 @@
       ]
     },
     "input_quality": {
-      "href": "../../../data/esa-worldcover/ESA_WORLDCOVER_10M_2020_V100/MAP/ESA_WorldCover_10m_2020_v100_N66W180_Map/ESA_WorldCover_10m_2020_v100_N66W180_InputQuality.tif",
+      "href": "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_InputQuality.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Classification Input Data Quality",
       "description": "Per pixel quality indicator showing the quality of the electro-optical input data. Band 1 contains the number of Sentinel-1 GAMMA0 observations used in the classification workflow. Band 2 contains the number of Sentinel-2 L2A observations used in the classification workflow. Band 3 contains the percentage (0-100) of invalid S2 observations discarded in the classification workflow (after cloud and cloud shadow filtering).",
@@ -149,10 +161,10 @@
       "proj:transform": [
         0.0005,
         0.0,
-        -180.0,
+        -99.0,
         0.0,
         -0.0005,
-        69.0
+        30.0
       ],
       "proj:shape": [
         6000,
@@ -184,14 +196,15 @@
     }
   },
   "bbox": [
-    -180.0,
-    66.0,
-    -177.0,
-    69.0
+    -99.0,
+    27.0,
+    -96.0,
+    30.0
   ],
   "stac_extensions": [
     "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
     "https://stac-extensions.github.io/raster/v1.0.0/schema.json",
     "https://stac-extensions.github.io/classification/v1.0.0/schema.json"
-  ]
+  ],
+  "collection": "esa-worldcover"
 }
