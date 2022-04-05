@@ -10,7 +10,7 @@ from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ProjectionExtension
 from pystac.extensions.raster import RasterBand, RasterExtension
 from pystac.extensions.scientific import ScientificExtension
-from pystac.utils import str_to_datetime
+from pystac.utils import make_absolute_href, str_to_datetime
 from stactools.core.io import ReadHrefModifier
 
 from stactools.esa_worldcover import constants
@@ -72,7 +72,8 @@ def create_item(map_href: str,
     item_proj.epsg = constants.EPSG
 
     # --Map asset--
-    map_asset = Asset(href=map_href, roles=constants.MAP_ROLES)
+    map_asset = Asset(href=make_absolute_href(map_href))
+    map_asset.roles = constants.MAP_ROLES
     map_asset.title = constants.MAP_TITLE
     map_asset.description = constants.MAP_DESCRIPTION
     map_asset.media_type = MediaType.COG
@@ -93,7 +94,8 @@ def create_item(map_href: str,
     item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
     # --Input quality asset--
-    qua_asset = Asset(href=qua_href, roles=constants.QUALITY_ROLES)
+    qua_asset = Asset(href=make_absolute_href(qua_href))
+    qua_asset.roles = constants.QUALITY_ROLES
     qua_asset.title = constants.QUALITY_TITLE
     qua_asset.description = constants.QUALITY_DESCRIPTION
     qua_asset.media_type = MediaType.COG
@@ -124,18 +126,18 @@ def create_collection(collection_id: str) -> Collection:
     Returns:
         Collection: The created STAC Collection.
     """
-    collection = Collection(
-        id=collection_id,
-        title=constants.COLLECTION_TITLE,
-        description=constants.COLLECTION_DESCRIPTION,
-        license=constants.LICENSE,
-        keywords=constants.KEYWORDS,
-        providers=constants.PROVIDERS,
-        extent=constants.EXTENT,
-        summaries=constants.SUMMARIES,
-        extra_fields={
-            "esa_worldcover:product_version": constants.PRODUCT_VERSION
-        })
+    collection = Collection(id=collection_id,
+                            title=constants.COLLECTION_TITLE,
+                            description=constants.COLLECTION_DESCRIPTION,
+                            license=constants.LICENSE,
+                            keywords=constants.KEYWORDS,
+                            providers=constants.PROVIDERS,
+                            extent=constants.EXTENT,
+                            summaries=constants.SUMMARIES,
+                            extra_fields={
+                                "esa_worldcover:product_version":
+                                constants.PRODUCT_VERSION
+                            })
 
     scientific = ScientificExtension.ext(collection, add_if_missing=True)
     scientific.doi = constants.DATA_DOI
@@ -148,6 +150,9 @@ def create_collection(collection_id: str) -> Collection:
     collection.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
     collection.remove_links("cite-as")  # we need to add extra information
-    collection.add_links([constants.DATA_DOI_LINK, constants.LICENSE_LINK])
+    collection.add_links([
+        constants.DATA_DOI_LINK, constants.LICENSE_LINK, constants.USER_LINK,
+        constants.VALIDATION_LINK
+    ])
 
     return collection

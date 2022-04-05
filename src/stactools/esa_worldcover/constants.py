@@ -162,9 +162,9 @@ EXTENT = Extent(SpatialExtent([[-180.0, -60.0, 180.0, 82.75]]),
                 TemporalExtent([[START_TIME, END_TIME]]))
 SUMMARIES = Summaries({
     "summaries": {
-        "platform":
-        ["Sentinel-1A", "Sentinel-1B", "Sentinel-2A", "Sentinel-2B"],
-        "instruments": INSTRUMENTS
+        "platform": PLATFORM.split(", "),
+        "instruments": INSTRUMENTS,
+        "mission": MISSION.split(", ")
     }
 })
 ITEM_ASSETS = {
@@ -186,3 +186,12 @@ ITEM_ASSETS = {
         "roles": QUALITY_ROLES
     })
 }
+USER_LINK = Link(
+    rel="user_manual",
+    target=  # noqa
+    "https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/WorldCover_PUM_V1.0.pdf",
+    title="Product User Manual")
+VALIDATION_LINK = Link(
+    rel="validation_report",
+    target="https://worldcover2020.esa.int/data/docs/WorldCover_PVR_V1.1.pdf",
+    title="Product Validation Report")

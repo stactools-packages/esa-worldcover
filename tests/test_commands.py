@@ -15,11 +15,11 @@ class ItemCommandTest(CliTestCase):
         return [create_esaworldcover_command]
 
     def test_create_item(self) -> None:
-        infile = "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_Map.tif"  # noqa
+        infile = "tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa
         with TemporaryDirectory() as tmp_dir:
             cmd = f"esaworldcover create-item {infile} {tmp_dir}"
             self.run_command(cmd)
             item_path = os.path.join(
-                tmp_dir, "esa_worldcover_10m_2020_v100_n27w099.json")
+                tmp_dir, "esa_worldcover_10m_2020_v100_n66e177.json")
             item = pystac.read_file(item_path)
         item.validate()

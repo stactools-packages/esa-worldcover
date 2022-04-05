@@ -1,19 +1,23 @@
 import unittest
 
 from stactools.esa_worldcover import stac
+from tests import test_data
 
 
 class StacTest(unittest.TestCase):
 
     def test_create_item(self) -> None:
-        item = stac.create_item(
-            "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_Map.tif"  # noqa
+        href = test_data.get_path(
+            "data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa
         )
-        self.assertEqual(item.id, "esa_worldcover_10m_2020_v100_n27w099")
+        item = stac.create_item(href)
+        self.assertEqual(item.id, "esa_worldcover_10m_2020_v100_n66e177")
         item.validate()
 
     def test_read_href_modifier(self) -> None:
-        href = "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_Map.tif"  # noqa
+        href = test_data.get_path(
+            "data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa
+        )
         did_it = False
 
         def read_href_modifier(href: str) -> str:

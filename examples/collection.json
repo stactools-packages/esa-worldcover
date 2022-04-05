@@ -21,8 +21,18 @@
       "title": "Creative Commons Attribution 4.0 International License"
     },
     {
+      "rel": "user_manual",
+      "href": "https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/WorldCover_PUM_V1.0.pdf",
+      "title": "Product User Manual"
+    },
+    {
+      "rel": "validation_report",
+      "href": "https://worldcover2020.esa.int/data/docs/WorldCover_PVR_V1.1.pdf",
+      "title": "Product Validation Report"
+    },
+    {
       "rel": "item",
-      "href": "./esa_worldcover_10m_2020_v100_n27w099/esa_worldcover_10m_2020_v100_n27w099.json",
+      "href": "./esa_worldcover_10m_2020_v100_n66e177/esa_worldcover_10m_2020_v100_n66e177.json",
       "type": "application/json"
     }
   ],
@@ -200,6 +210,10 @@
       "instruments": [
         "C-SAR",
         "MSI"
+      ],
+      "mission": [
+        "Sentinel-1",
+        "Sentinel-2"
       ]
     }
   }

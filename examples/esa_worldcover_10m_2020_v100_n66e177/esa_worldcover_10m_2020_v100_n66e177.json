@@ -1,10 +1,10 @@
 {
   "type": "Feature",
   "stac_version": "1.0.0",
-  "id": "esa_worldcover_10m_2020_v100_n27w099",
+  "id": "esa_worldcover_10m_2020_v100_n66e177",
   "properties": {
     "description": "ESA WorldCover product at 10m resolution for year 2020",
-    "created": "2022-04-05T13:06:28.654439Z",
+    "created": "2022-04-05T21:54:43.910808Z",
     "mission": "Sentinel-1, Sentinel-2",
     "platform": "Sentinel-1A, Sentinel-1B, Sentinel-2A, Sentinel-2B",
     "instruments": [
@@ -13,7 +13,7 @@
     ],
     "start_datetime": "2020-01-01T00:00:00Z",
     "end_datetime": "2020-12-31T23:59:59Z",
-    "esa_worldcover:product_tile": "N27W099",
+    "esa_worldcover:product_tile": "N66E177",
     "proj:epsg": 4326,
     "datetime": "2020-01-01T00:00:00Z"
   },
@@ -22,24 +22,24 @@
     "coordinates": [
       [
         [
-          -96.0,
-          27.0
+          180.0,
+          66.0
         ],
         [
-          -96.0,
-          30.0
+          180.0,
+          69.0
         ],
         [
-          -99.0,
-          30.0
+          177.0,
+          69.0
         ],
         [
-          -99.0,
-          27.0
+          177.0,
+          66.0
         ],
         [
-          -96.0,
-          27.0
+          180.0,
+          66.0
         ]
       ]
     ]
@@ -66,22 +66,22 @@
   ],
   "assets": {
     "map": {
-      "href": "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_Map.tif",
+      "href": "../../tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Land Cover Classes",
       "description": "Discrete classification according to the Land Cover Classification System scheme developed by the United Nations Food and Agriculture Organization",
       "created": "2021-10-12T16:51:26.705020Z",
       "proj:transform": [
-        8.333333333333333e-05,
+        0.0029296875,
         0.0,
-        -99.0,
+        177.0,
         0.0,
-        -8.333333333333333e-05,
-        30.0
+        -0.0029296875,
+        69.0
       ],
       "proj:shape": [
-        36000,
-        36000
+        1024,
+        1024
       ],
       "raster:bands": [
         {
@@ -153,22 +153,22 @@
       ]
     },
     "input_quality": {
-      "href": "tests/data-files/ESA_WorldCover_10m_2020_v100_N27W099_Map/ESA_WorldCover_10m_2020_v100_N27W099_InputQuality.tif",
+      "href": "../../tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_InputQuality.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Classification Input Data Quality",
       "description": "Per pixel quality indicator showing the quality of the electro-optical input data. Band 1 contains the number of Sentinel-1 GAMMA0 observations used in the classification workflow. Band 2 contains the number of Sentinel-2 L2A observations used in the classification workflow. Band 3 contains the percentage (0-100) of invalid S2 observations discarded in the classification workflow (after cloud and cloud shadow filtering).",
       "created": "2021-10-14T21:13:32.209529Z",
       "proj:transform": [
-        0.0005,
+        0.005859375,
         0.0,
-        -99.0,
+        177.0,
         0.0,
-        -0.0005,
-        30.0
+        -0.005859375,
+        69.0
       ],
       "proj:shape": [
-        6000,
-        6000
+        512,
+        512
       ],
       "raster:bands": [
         {
@@ -196,10 +196,10 @@
     }
   },
   "bbox": [
-    -99.0,
-    27.0,
-    -96.0,
-    30.0
+    177.0,
+    66.0,
+    180.0,
+    69.0
   ],
   "stac_extensions": [
     "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
