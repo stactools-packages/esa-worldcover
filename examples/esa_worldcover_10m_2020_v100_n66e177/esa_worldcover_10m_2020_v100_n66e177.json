@@ -4,7 +4,7 @@
   "id": "esa_worldcover_10m_2020_v100_n66e177",
   "properties": {
     "description": "ESA WorldCover product at 10m resolution for year 2020",
-    "created": "2022-04-06T09:35:19.702728Z",
+    "created": "2022-04-06T13:13:58.491686Z",
     "mission": "Sentinel-1, Sentinel-2",
     "platform": "Sentinel-1A, Sentinel-1B, Sentinel-2A, Sentinel-2B",
     "instruments": [

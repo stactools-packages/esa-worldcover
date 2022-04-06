@@ -161,11 +161,9 @@ PROVIDERS = [
 EXTENT = Extent(SpatialExtent([[-180.0, -60.0, 180.0, 82.75]]),
                 TemporalExtent([[START_TIME, END_TIME]]))
 SUMMARIES = Summaries({
-    "summaries": {
-        "platform": PLATFORM.split(", "),
-        "instruments": INSTRUMENTS,
-        "mission": MISSION.split(", ")
-    }
+    "platform": PLATFORM.split(", "),
+    "instruments": INSTRUMENTS,
+    "mission": MISSION.split(", ")
 })
 ITEM_ASSETS = {
     "map":

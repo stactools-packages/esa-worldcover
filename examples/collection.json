@@ -17,16 +17,16 @@
     },
     {
       "rel": "license",
-      "href": "https://creativecommons.org/licenses/by/4.0/",
+      "href": "https://spdx.org/licenses/CC-BY-4.0.html",
       "title": "Creative Commons Attribution 4.0 International License"
     },
     {
-      "rel": "user_manual",
+      "rel": "manual",
       "href": "https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/WorldCover_PUM_V1.0.pdf",
       "title": "Product User Manual"
     },
     {
-      "rel": "validation_report",
+      "rel": "validation",
       "href": "https://worldcover2020.esa.int/data/docs/WorldCover_PVR_V1.1.pdf",
       "title": "Product Validation Report"
     },
@@ -171,7 +171,10 @@
   },
   "license": "CC-BY-4.0",
   "keywords": [
-    "Sentinel, ESA, Satellite, Global, Classification"
+    "Global",
+    "Land Cover",
+    "Sentinel",
+    "ESA"
   ],
   "providers": [
     {
@@ -200,21 +203,19 @@
     }
   ],
   "summaries": {
-    "summaries": {
-      "platform": [
-        "Sentinel-1A",
-        "Sentinel-1B",
-        "Sentinel-2A",
-        "Sentinel-2B"
-      ],
-      "instruments": [
-        "C-SAR",
-        "MSI"
-      ],
-      "mission": [
-        "Sentinel-1",
-        "Sentinel-2"
-      ]
-    }
+    "platform": [
+      "Sentinel-1A",
+      "Sentinel-1B",
+      "Sentinel-2A",
+      "Sentinel-2B"
+    ],
+    "instruments": [
+      "C-SAR",
+      "MSI"
+    ],
+    "mission": [
+      "Sentinel-1",
+      "Sentinel-2"
+    ]
   }
 }
