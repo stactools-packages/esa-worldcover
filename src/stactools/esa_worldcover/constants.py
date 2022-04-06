@@ -187,11 +187,11 @@ ITEM_ASSETS = {
     })
 }
 USER_LINK = Link(
-    rel="user_manual",
+    rel="manual",
     target=  # noqa
     "https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/WorldCover_PUM_V1.0.pdf",
     title="Product User Manual")
 VALIDATION_LINK = Link(
-    rel="validation_report",
+    rel="validation",
     target="https://worldcover2020.esa.int/data/docs/WorldCover_PVR_V1.1.pdf",
     title="Product Validation Report")

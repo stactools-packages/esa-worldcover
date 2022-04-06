@@ -42,6 +42,5 @@ $ stac esaworldcover create-collection examples/file-list.txt examples
 ```
 
 The above `create-collection` command is exactly how the contents of the `examples` directory are generated.
-```
 
 Use `stac esaworldcover --help` to see all subcommands and options.
