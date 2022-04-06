@@ -137,7 +137,7 @@ DATA_CITATION = (
     "S., Herold, M., Li, Linlin, Tsendbazar, N.E., Ramoino, F., Arino, O., "
     "2021. ESA WorldCover 10m 2020 v100. https://doi.org/10.5281/zenodo.5571936"
 )
-KEYWORDS = ["Sentinel, ESA, Satellite, Global, Classification"]
+KEYWORDS = ["Global", "Land Cover", "Sentinel", "ESA"]
 PROVIDERS = [
     Provider(
         name="ESA WorldCover Consortium",
