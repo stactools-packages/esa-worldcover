@@ -6,4 +6,3 @@ dependencies:
   - gdal>=3.3
   - geos>=3.3
   - rasterio>=1.2
-  - pyproj>=3.3
