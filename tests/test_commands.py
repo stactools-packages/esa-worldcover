@@ -1,61 +1,28 @@
 import os.path
 from tempfile import TemporaryDirectory
+from typing import Callable, List
 
 import pystac
+from click import Command, Group
 from stactools.testing import CliTestCase
 
-from stactools.ephemeral.commands import create_ephemeralcmd_command
+from stactools.esa_worldcover.commands import create_esaworldcover_command
+from tests import test_data
 
 
-class CommandsTest(CliTestCase):
+class ItemCommandTest(CliTestCase):
 
-    def create_subcommand_functions(self):
-        return [create_ephemeralcmd_command]
+    def create_subcommand_functions(self) -> List[Callable[[Group], Command]]:
+        return [create_esaworldcover_command]
 
-    def test_create_collection(self):
+    def test_create_item(self) -> None:
+        infile = test_data.get_path(
+            "data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa
+        )
         with TemporaryDirectory() as tmp_dir:
-            # Run your custom create-collection command and validate
-
-            # Example:
-            destination = os.path.join(tmp_dir, "collection.json")
-
-            result = self.run_command(
-                ["ephemeralcmd", "create-collection", destination])
-
-            self.assertEqual(result.exit_code,
-                             0,
-                             msg="\n{}".format(result.output))
-
-            jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
-            self.assertEqual(len(jsons), 1)
-
-            collection = pystac.read_file(destination)
-            self.assertEqual(collection.id, "my-collection-id")
-            # self.assertEqual(item.other_attr...
-
-            collection.validate()
-
-    def test_create_item(self):
-        with TemporaryDirectory() as tmp_dir:
-            # Run your custom create-item command and validate
-
-            # Example:
-            destination = os.path.join(tmp_dir, "item.json")
-            result = self.run_command([
-                "ephemeralcmd",
-                "create-item",
-                "/path/to/asset.tif",
-                destination,
-            ])
-            self.assertEqual(result.exit_code,
-                             0,
-                             msg="\n{}".format(result.output))
-
-            jsons = [p for p in os.listdir(tmp_dir) if p.endswith(".json")]
-            self.assertEqual(len(jsons), 1)
-
-            item = pystac.read_file(destination)
-            self.assertEqual(item.id, "my-item-id")
-            # self.assertEqual(item.other_attr...
-
-            item.validate()
+            cmd = f"esaworldcover create-item {infile} {tmp_dir}"
+            self.run_command(cmd)
+            item_path = os.path.join(
+                tmp_dir, "esa_worldcover_10m_2020_v100_n66e177.json")
+            item = pystac.read_file(item_path)
+        item.validate()
