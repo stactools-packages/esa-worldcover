@@ -35,7 +35,7 @@ To create a STAC `Item`:
 $ stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif examples
 ```
 
-To create a STAC `Collection` from a text file containing a list of Landsat scene XML metadata files:
+To create a STAC `Collection` from a text file containing a list of WorldCover Map tile COG files:
 
 ```bash
 $ stac esaworldcover create-collection examples/file-list.txt examples

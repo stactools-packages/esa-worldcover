@@ -153,10 +153,7 @@ PROVIDERS = [
                  ProviderRole.LICENSOR, ProviderRole.PRODUCER,
                  ProviderRole.HOST
              ],
-             url="https://esa-worldcover.org/en"),
-    Provider(name="Microsoft",
-             roles=[ProviderRole.HOST],
-             url="https://planetarycomputer.microsoft.com")
+             url="https://esa-worldcover.org/en")
 ]
 EXTENT = Extent(SpatialExtent([[-180.0, -60.0, 180.0, 82.75]]),
                 TemporalExtent([[START_TIME, END_TIME]]))

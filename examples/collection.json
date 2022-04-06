@@ -193,13 +193,6 @@
         "host"
       ],
       "url": "https://esa-worldcover.org/en"
-    },
-    {
-      "name": "Microsoft",
-      "roles": [
-        "host"
-      ],
-      "url": "https://planetarycomputer.microsoft.com"
     }
   ],
   "summaries": {
