@@ -124,7 +124,7 @@ PRODUCT_VERSION = "V1.0.0"
 LICENSE = "CC-BY-4.0"
 LICENSE_LINK = Link(
     rel="license",
-    target="https://creativecommons.org/licenses/by/4.0/",
+    target="https://spdx.org/licenses/CC-BY-4.0.html",
     title="Creative Commons Attribution 4.0 International License")
 DATA_DOI = "10.5281/zenodo.5571936"
 DATA_DOI_LINK = Link(rel="cite-as",
