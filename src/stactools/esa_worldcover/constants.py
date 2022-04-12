@@ -96,31 +96,35 @@ QUALITY_DESCRIPTION = (
     "Per pixel quality indicator showing the quality of the electro-optical input data."
 )
 QUALITY_ROLES = ["metadata"]
-QUALITY_RASTER: List[Dict[str, Any]] = [{
-    "name": "Band1",
-    "description":
-    "Number of Sentinel-1 GAMMA0 observations used in the classification workflow",
-    "nodata": -1,
-    "sampling": "area",
-    "data_type": "int16",
-    "spatial_resolution": 60
-}, {
-    "name": "Band2",
-    "description":
-    "Number of Sentinel-2 L2A observations used in the classification workflow",
-    "nodata": -1,
-    "sampling": "area",
-    "data_type": "int16",
-    "spatial_resolution": 60
-}, {
-    "name": "Band3",
-    "description":
-    "Percentage (0-100) of invalid S2 observations discarded in the classification workflow (after cloud and cloud shadow filtering)",
-    "nodata": -1,
-    "sampling": "area",
-    "data_type": "int16",
-    "spatial_resolution": 60
-}]
+QUALITY_RASTER: List[Dict[str, Any]] = [
+    {
+        "name": "Band1",
+        "description":
+        "Number of Sentinel-1 GAMMA0 observations used in the classification workflow",
+        "nodata": -1,
+        "sampling": "area",
+        "data_type": "int16",
+        "spatial_resolution": 60
+    },
+    {
+        "name": "Band2",
+        "description":
+        "Number of Sentinel-2 L2A observations used in the classification workflow",
+        "nodata": -1,
+        "sampling": "area",
+        "data_type": "int16",
+        "spatial_resolution": 60
+    },
+    {
+        "name": "Band3",
+        "description":
+        "Percentage (0-100) of invalid S2 observations discarded in the classification workflow (after cloud and cloud shadow filtering)",  # noqa
+        "nodata": -1,
+        "sampling": "area",
+        "data_type": "int16",
+        "spatial_resolution": 60
+    }
+]
 
 # --Collection--
 COLLECTION_TITLE = "ESA WorldCover 2020"
