@@ -37,9 +37,11 @@ MAP_DESCRIPTION = (
     "scheme developed by the United Nations Food and Agriculture Organization")
 MAP_ROLES = ["data"]
 MAP_RASTER: List[Dict[str, Any]] = [{
+    "name": "Band1",
+    "description": "Classification values",
     "nodata": 0,
     "sampling": "area",
-    "data_type": "uint16",
+    "data_type": "uint8",
     "spatial_resolution": 10
 }]
 MAP_CLASSES = [{
@@ -91,24 +93,29 @@ MAP_CLASSES = [{
 # --Quality Input Asset--
 QUALITY_TITLE = "Classification Input Data Quality"
 QUALITY_DESCRIPTION = (
-    "Per pixel quality indicator showing the quality of the electro-optical "
-    "input data. Band 1 contains the number of Sentinel-1 GAMMA0 observations "
-    "used in the classification workflow. Band 2 contains the number of "
-    "Sentinel-2 L2A observations used in the classification workflow. Band 3 "
-    "contains the percentage (0-100) of invalid S2 observations discarded in "
-    "the classification workflow (after cloud and cloud shadow filtering).")
+    "Per pixel quality indicator showing the quality of the electro-optical input data."
+)
 QUALITY_ROLES = ["metadata"]
 QUALITY_RASTER: List[Dict[str, Any]] = [{
+    "name": "Band1",
+    "description":
+    "Number of Sentinel-1 GAMMA0 observations used in the classification workflow",
     "nodata": -1,
     "sampling": "area",
     "data_type": "int16",
     "spatial_resolution": 60
 }, {
+    "name": "Band2",
+    "description":
+    "Number of Sentinel-2 L2A observations used in the classification workflow",
     "nodata": -1,
     "sampling": "area",
     "data_type": "int16",
     "spatial_resolution": 60
 }, {
+    "name": "Band3",
+    "description":
+    "Percentage (0-100) of invalid S2 observations discarded in the classification workflow (after cloud and cloud shadow filtering)",
     "nodata": -1,
     "sampling": "area",
     "data_type": "int16",
@@ -127,9 +134,6 @@ LICENSE_LINK = Link(
     target="https://spdx.org/licenses/CC-BY-4.0.html",
     title="Creative Commons Attribution 4.0 International License")
 DATA_DOI = "10.5281/zenodo.5571936"
-DATA_DOI_LINK = Link(rel="cite-as",
-                     target="https://doi.org/10.5281/zenodo.5571936",
-                     title="ESA WorldCover 10m 2020 v100")
 DATA_CITATION = (
     "Zanaga, D., Van De Kerchove, R., De Keersmaecker, W., Souverijns, N., "
     "Brockmann, C., Quast, R., Wevers, J., Grosu, A., Paccini, A., Vergnaud, "
