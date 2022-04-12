@@ -7,8 +7,9 @@ import rasterio
 import shapely
 from pystac import Asset, Collection, Item, MediaType
 from pystac.extensions.item_assets import ItemAssetsExtension
-from pystac.extensions.projection import ProjectionExtension
-from pystac.extensions.raster import RasterBand, RasterExtension
+from pystac.extensions.projection import (AssetProjectionExtension,
+                                          ItemProjectionExtension)
+from pystac.extensions.raster import RasterExtension
 from pystac.extensions.scientific import ScientificExtension
 from pystac.utils import make_absolute_href, str_to_datetime
 from stactools.core.io import ReadHrefModifier
@@ -68,7 +69,7 @@ def create_item(map_href: str,
     item.common_metadata.end_datetime = constants.END_TIME
     item.properties["esa_worldcover:product_tile"] = map_tags["product_tile"]
 
-    item_proj = ProjectionExtension.ext(item, add_if_missing=True)
+    item_proj = ItemProjectionExtension.ext(item, add_if_missing=True)
     item_proj.epsg = constants.EPSG
 
     # --Map asset--
@@ -77,21 +78,22 @@ def create_item(map_href: str,
     map_asset.title = constants.MAP_TITLE
     map_asset.description = constants.MAP_DESCRIPTION
     map_asset.media_type = MediaType.COG
-    map_asset.common_metadata.created = str_to_datetime(
-        map_tags["creation_time"])
-    item.add_asset('map', map_asset)
 
-    map_proj = ProjectionExtension.ext(map_asset, add_if_missing=True)
+    map_asset.extra_fields = {
+        "raster:bands": constants.MAP_RASTER,
+        "classification:classes": constants.MAP_CLASSES
+    }
+    RasterExtension.add_to(item)
+    item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
+
+    map_proj = AssetProjectionExtension.ext(map_asset)
     map_proj.transform = map_transform
     map_proj.shape = map_shape
 
-    map_raster = RasterExtension.ext(map_asset, add_if_missing=True)
-    map_raster.bands = [
-        RasterBand.create(**band) for band in constants.MAP_RASTER
-    ]
+    map_asset.common_metadata.created = str_to_datetime(
+        map_tags["creation_time"])
 
-    map_asset.extra_fields["classification:classes"] = constants.MAP_CLASSES
-    item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
+    item.add_asset('map', map_asset)
 
     # --Input quality asset--
     qua_asset = Asset(href=make_absolute_href(qua_href))
@@ -99,18 +101,17 @@ def create_item(map_href: str,
     qua_asset.title = constants.QUALITY_TITLE
     qua_asset.description = constants.QUALITY_DESCRIPTION
     qua_asset.media_type = MediaType.COG
-    qua_asset.common_metadata.created = str_to_datetime(
-        qua_tags["creation_time"])
-    item.add_asset('input_quality', qua_asset)
 
-    qua_proj = ProjectionExtension.ext(qua_asset, add_if_missing=True)
+    qua_asset.extra_fields = {"raster:bands": constants.QUALITY_RASTER}
+
+    qua_proj = AssetProjectionExtension.ext(qua_asset)
     qua_proj.transform = qua_transform
     qua_proj.shape = qua_shape
 
-    qua_raster = RasterExtension.ext(qua_asset, add_if_missing=True)
-    qua_raster.bands = [
-        RasterBand.create(**band) for band in constants.QUALITY_RASTER
-    ]
+    qua_asset.common_metadata.created = str_to_datetime(
+        qua_tags["creation_time"])
+
+    item.add_asset('input_quality', qua_asset)
 
     item.validate()
 
@@ -149,10 +150,8 @@ def create_collection(collection_id: str) -> Collection:
     RasterExtension.add_to(collection)
     collection.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
-    collection.remove_links("cite-as")  # we need to add extra information
     collection.add_links([
-        constants.DATA_DOI_LINK, constants.LICENSE_LINK, constants.USER_LINK,
-        constants.VALIDATION_LINK
+        constants.LICENSE_LINK, constants.USER_LINK, constants.VALIDATION_LINK
     ])
 
     return collection
