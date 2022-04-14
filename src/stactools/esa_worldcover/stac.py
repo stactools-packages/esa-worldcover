@@ -16,7 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 def create_item(map_href: str,
-                quality_asset: bool = False,
+                include_quality_asset: bool = False,
                 read_href_modifier: Optional[ReadHrefModifier] = None) -> Item:
     """Create a STAC Item with a single Asset for a 3x3 degree COG tile of the
     ESA 10m WorldCover classification product.
@@ -53,7 +53,7 @@ def create_item(map_href: str,
 
     item.add_asset("map", map_metadata.asset)
 
-    if quality_asset:
+    if include_quality_asset:
         quality_href = Metadata.quality_href(map_href)
         quality_metadata = Metadata(quality_href, read_href_modifier)
         item.add_asset("input_quality", quality_metadata.asset)

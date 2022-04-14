@@ -32,13 +32,13 @@ Generate STAC Items and Collections for [ESA's 10m resolution global land cover 
 To create a STAC `Item`:
 
 ```bash
-$ stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif examples --quality_asset
+$ stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif examples --include-quality-asset
 ```
 
 To create a STAC `Collection` from a text file containing a list of WorldCover Map tile COG files:
 
 ```bash
-$ stac esaworldcover create-collection examples/file-list.txt examples --quality_assets
+$ stac esaworldcover create-collection examples/file-list.txt examples --include-quality-assets
 ```
 
 The above `create-collection` command is exactly how the contents of the `examples` directory are generated.

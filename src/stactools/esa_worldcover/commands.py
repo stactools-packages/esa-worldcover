@@ -32,11 +32,11 @@ def create_esaworldcover_command(cli: Group) -> Command:
                   show_default=True,
                   help="collection id string")
     @click.option("-q",
-                  "--quality_assets",
+                  "--include-quality-assets",
                   is_flag=True,
                   help="include input quality raster Assets in Items")
     def create_collection_command(infile: str, outdir: str, id: str,
-                                  quality_assets: bool) -> None:
+                                  include_quality_assets: bool) -> None:
         """Creates a STAC Collection for Items defined by the hrefs in INFILE."
 
         \b
@@ -56,7 +56,8 @@ def create_esaworldcover_command(cli: Group) -> Command:
         collection.set_self_href(os.path.join(outdir, "collection.json"))
         collection.catalog_type = CatalogType.SELF_CONTAINED
         for href in hrefs:
-            item = stac.create_item(href, quality_asset=quality_assets)
+            item = stac.create_item(
+                href, include_quality_asset=include_quality_assets)
             collection.add_item(item)
         collection.make_all_asset_hrefs_relative()
         collection.validate_all()
@@ -68,11 +69,11 @@ def create_esaworldcover_command(cli: Group) -> Command:
     @click.argument("INFILE")
     @click.argument("OUTDIR")
     @click.option("-q",
-                  "--quality_asset",
+                  "--include-quality-asset",
                   is_flag=True,
                   help="include input quality raster Asset in Item")
     def create_item_command(infile: str, outdir: str,
-                            quality_asset: bool) -> None:
+                            include_quality_asset: bool) -> None:
         """Creates a STAC Item for a 3x3 degree tile of the ESA 10m WorldCover
         classification product.
 
@@ -83,7 +84,8 @@ def create_esaworldcover_command(cli: Group) -> Command:
             quality_asset (bool): Flag to include an input quality asset.
                 Requires an input quality COG to exist alongside the map COG.
         """
-        item = stac.create_item(infile, quality_asset=quality_asset)
+        item = stac.create_item(infile,
+                                include_quality_asset=include_quality_asset)
         item_path = os.path.join(outdir, f"{item.id}.json")
         item.set_self_href(item_path)
         item.make_asset_hrefs_relative()
