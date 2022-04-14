@@ -31,8 +31,13 @@ def create_esaworldcover_command(cli: Group) -> Command:
                   default="esa-worldcover",
                   show_default=True,
                   help="collection id string")
-    def create_collection_command(infile: str, outdir: str, id: str) -> None:
-        """Creates a STAC Collection for Items defined by the hrefs in INFILE"
+    @click.option("-q",
+                  "--quality_assets",
+                  is_flag=True,
+                  help="include input quality raster Assets in Items")
+    def create_collection_command(infile: str, outdir: str, id: str,
+                                  quality_assets: bool) -> None:
+        """Creates a STAC Collection for Items defined by the hrefs in INFILE."
 
         \b
         Args:
@@ -40,6 +45,9 @@ def create_esaworldcover_command(cli: Group) -> Command:
                 should point to ESA WorldCover 3x3 degree tile Map COGs.
             outdir (str): Directory that will contain the collection.
             id (str): Collection id. Defaults to "esa-worldcover".
+            quality_assets (bool): Flag to include input quality Assets in the
+                collection Items. Requires input quality COGs to exist alongside
+                the corresponding map COG hrefs listed in INFILE.
         """
         with open(infile) as file:
             hrefs = [line.strip() for line in file.readlines()]
@@ -48,7 +56,7 @@ def create_esaworldcover_command(cli: Group) -> Command:
         collection.set_self_href(os.path.join(outdir, "collection.json"))
         collection.catalog_type = CatalogType.SELF_CONTAINED
         for href in hrefs:
-            item = stac.create_item(href)
+            item = stac.create_item(href, quality_asset=quality_assets)
             collection.add_item(item)
         collection.make_all_asset_hrefs_relative()
         collection.validate_all()
@@ -56,11 +64,15 @@ def create_esaworldcover_command(cli: Group) -> Command:
 
     @esaworldcover.command(
         "create-item",
-        short_help=("Create a STAC Item from an ESA WorldCover Map "
-                    "COG file."))
+        short_help=("Create a STAC Item from an ESA WorldCover Map COG file."))
     @click.argument("INFILE")
     @click.argument("OUTDIR")
-    def create_item_command(infile: str, outdir: str) -> None:
+    @click.option("-q",
+                  "--quality_asset",
+                  is_flag=True,
+                  help="include input quality raster Asset in Item")
+    def create_item_command(infile: str, outdir: str,
+                            quality_asset: bool) -> None:
         """Creates a STAC Item for a 3x3 degree tile of the ESA 10m WorldCover
         classification product.
 
@@ -68,8 +80,10 @@ def create_esaworldcover_command(cli: Group) -> Command:
         Args:
             infile (str): HREF of the classification map COG.
             outdir (str): Directory that will contain the STAC Item.
+            quality_asset (bool): Flag to include an input quality asset.
+                Requires an input quality COG to exist alongside the map COG.
         """
-        item = stac.create_item(infile)
+        item = stac.create_item(infile, quality_asset=quality_asset)
         item_path = os.path.join(outdir, f"{item.id}.json")
         item.set_self_href(item_path)
         item.make_asset_hrefs_relative()
