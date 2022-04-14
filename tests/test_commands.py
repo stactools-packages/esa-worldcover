@@ -23,6 +23,6 @@ class ItemCommandTest(CliTestCase):
             cmd = f"esaworldcover create-item {infile} {tmp_dir}"
             self.run_command(cmd)
             item_path = os.path.join(
-                tmp_dir, "esa_worldcover_10m_2020_v100_n66e177.json")
+                tmp_dir, "ESA_WorldCover_10m_2020_v100_N66E177.json")
             item = pystac.read_file(item_path)
         item.validate()

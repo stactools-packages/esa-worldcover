@@ -11,7 +11,17 @@ class StacTest(unittest.TestCase):
             "data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa
         )
         item = stac.create_item(href)
-        self.assertEqual(item.id, "esa_worldcover_10m_2020_v100_n66e177")
+        self.assertEqual(item.id, "ESA_WorldCover_10m_2020_v100_N66E177")
+        self.assertEqual(len(item.assets), 1)
+        item.validate()
+
+    def test_create_item_quality_assets(self) -> None:
+        href = test_data.get_path(
+            "data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa
+        )
+        item = stac.create_item(href, include_quality_asset=True)
+        self.assertEqual(item.id, "ESA_WorldCover_10m_2020_v100_N66E177")
+        self.assertEqual(len(item.assets), 2)
         item.validate()
 
     def test_read_href_modifier(self) -> None:

@@ -14,5 +14,6 @@ sphinxcontrib-fulltoc
 sphinxcontrib-napoleon
 toml
 types-click
+types-python-dateutil
 types-pytz
 yapf
