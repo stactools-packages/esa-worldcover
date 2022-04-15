@@ -136,6 +136,12 @@ DATA_CITATION = (
 )
 KEYWORDS = ["Global", "Land Cover", "Sentinel", "ESA"]
 PROVIDERS = [
+    Provider(name="ESA",
+             roles=[
+                 ProviderRole.LICENSOR, ProviderRole.PRODUCER,
+                 ProviderRole.HOST
+             ],
+             url="https://esa-worldcover.org/en"),
     Provider(
         name="ESA WorldCover Consortium",
         description=(
@@ -144,13 +150,7 @@ PROVIDERS = [
             "CS SI, Gamma Remote Sensing AG, IIASA and Wageningen "
             "University"),
         roles=[ProviderRole.PROCESSOR],
-        url="https://worldcover2020.esa.int/"),
-    Provider(name="ESA",
-             roles=[
-                 ProviderRole.LICENSOR, ProviderRole.PRODUCER,
-                 ProviderRole.HOST
-             ],
-             url="https://esa-worldcover.org/en")
+        url="https://worldcover2020.esa.int/")
 ]
 EXTENT = Extent(SpatialExtent([[-180.0, -60.0, 180.0, 82.75]]),
                 TemporalExtent([[parse(START_TIME),
