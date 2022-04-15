@@ -185,14 +185,6 @@
   ],
   "providers": [
     {
-      "name": "ESA WorldCover Consortium",
-      "description": "The WorldCover product is developed by a consortium led by VITO Remote Sensing together with partners Brockmann Consult, CS SI, Gamma Remote Sensing AG, IIASA and Wageningen University",
-      "roles": [
-        "processor"
-      ],
-      "url": "https://worldcover2020.esa.int/"
-    },
-    {
       "name": "ESA",
       "roles": [
         "licensor",
@@ -200,6 +192,14 @@
         "host"
       ],
       "url": "https://esa-worldcover.org/en"
+    },
+    {
+      "name": "ESA WorldCover Consortium",
+      "description": "The WorldCover product is developed by a consortium led by VITO Remote Sensing together with partners Brockmann Consult, CS SI, Gamma Remote Sensing AG, IIASA and Wageningen University",
+      "roles": [
+        "processor"
+      ],
+      "url": "https://worldcover2020.esa.int/"
     }
   ],
   "summaries": {

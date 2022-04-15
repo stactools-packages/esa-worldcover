@@ -7,7 +7,7 @@
     "end_datetime": "2020-12-31T23:59:59Z",
     "esa_worldcover:product_tile": "N66E177",
     "description": "ESA WorldCover product at 10m resolution for year 2020",
-    "created": "2022-04-15T01:15:11.882849Z",
+    "created": "2022-04-15T01:21:27.140785Z",
     "mission": "sentinel-1, sentinel-2",
     "platform": "sentinel-1a, sentinel-1b, sentinel-2a, sentinel-2b",
     "instruments": [
