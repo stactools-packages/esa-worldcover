@@ -6,8 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-### Changed
+Nothing.
 
-- Make input quality Item Asset optional [#4](https://github.com/stactools-packages/esa-worldcover/pull/4)
 
-[Unreleased]: <https://github.com/stactools-packages/esa-worldcover/tree/main/>
+## [0.1.0] - 2022-04-27
+
+Initial release.
+
+[Unreleased]: <https://github.com/stactools-packages/esa-worldcover/compare/v0.1.0..main>
+[0.1.0]: <https://github.com/stactools-packages/esa-worldcover/releases/tag/v0.1.0>
