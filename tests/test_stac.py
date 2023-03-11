@@ -5,7 +5,6 @@ from tests import test_data
 
 
 class StacTest(unittest.TestCase):
-
     def test_create_item(self) -> None:
         href = test_data.get_path(
             "data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif"  # noqa

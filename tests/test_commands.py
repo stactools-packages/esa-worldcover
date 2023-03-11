@@ -4,14 +4,13 @@ from typing import Callable, List
 
 import pystac
 from click import Command, Group
-from stactools.testing import CliTestCase
+from stactools.testing.cli_test import CliTestCase
 
 from stactools.esa_worldcover.commands import create_esaworldcover_command
 from tests import test_data
 
 
 class ItemCommandTest(CliTestCase):
-
     def create_subcommand_functions(self) -> List[Callable[[Group], Command]]:
         return [create_esaworldcover_command]
 
@@ -23,6 +22,7 @@ class ItemCommandTest(CliTestCase):
             cmd = f"esaworldcover create-item {infile} {tmp_dir}"
             self.run_command(cmd)
             item_path = os.path.join(
-                tmp_dir, "ESA_WorldCover_10m_2020_v100_N66E177.json")
+                tmp_dir, "ESA_WorldCover_10m_2020_v100_N66E177.json"
+            )
             item = pystac.read_file(item_path)
         item.validate()
