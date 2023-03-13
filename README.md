@@ -4,9 +4,9 @@
 
 - Name: esa-worldcover
 - Package: `stactools.esa-worldcover`
-- PyPI: <https://pypi.org/project/stactools-esa-worldcover/>
+- [stactools-esa-worldcover on PyPI](https://pypi.org/project/stactools-esa-worldcover/)
 - Owner: @pjhartzell
-- Dataset homepage: <https://esa-worldcover.org/en>
+- [Dataset homepage](https://esa-worldcover.org/en)
 - STAC extensions used:
   - [classification](https://github.com/stac-extensions/classification)
   - [item-assets](https://github.com/stac-extensions/item-assets)
@@ -19,27 +19,54 @@
 
 Generate STAC Items and Collections for [ESA's 10m resolution global land cover product](https://esa-worldcover.org/en) for the year 2020 based on Sentinel-1 and Sentinel-2 data.
 
-## Examples
+### STAC Examples
 
-### STAC objects
-
-- [Item](examples/ESA_WorldCover_10m_2020_v100_N66E177/ESA_WorldCover_10m_2020_v100_N66E177.json)
 - [Collection](examples/collection.json)
+- [Item](examples/ESA_WorldCover_10m_2020_v100_N66E177/ESA_WorldCover_10m_2020_v100_N66E177.json)
 
-### Command-line usage
+## Installation
+
+```shell
+pip install stactools-esa-worldcover
+```
+
+## Command-line Usage
 
 To create a STAC `Item`:
 
-```bash
+```shell
 stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif . --include-quality-asset
 ```
 
 To create a STAC `Collection` from a text file containing a list of WorldCover Map tile COG files:
 
-```bash
+```shell
 stac esaworldcover create-collection tests/data-files/file-list.txt examples --include-quality-assets
 ```
 
 The above `create-collection` command will create the contents of the `examples` directory.
 
 Use `stac esaworldcover --help` to see all subcommands and options.
+
+## Contributing
+
+We use [pre-commit](https://pre-commit.com/) to check any changes.
+To set up your development environment:
+
+```shell
+pip install -e .
+pip install -r requirements-dev.txt
+pre-commit install
+```
+
+To check all files:
+
+```shell
+pre-commit run --all-files
+```
+
+To run the tests:
+
+```shell
+pytest -vv
+```

@@ -1,8 +1,5 @@
-import unittest
-
 import stactools.esa_worldcover
 
 
-class TestModule(unittest.TestCase):
-    def test_version(self) -> None:
-        self.assertIsNotNone(stactools.esa_worldcover.__version__)
+def test_version() -> None:
+    assert stactools.esa_worldcover.__version__ is not None
