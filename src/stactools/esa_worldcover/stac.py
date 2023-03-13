@@ -15,9 +15,11 @@ from stactools.esa_worldcover.metadata import Metadata
 logger = logging.getLogger(__name__)
 
 
-def create_item(map_href: str,
-                include_quality_asset: bool = False,
-                read_href_modifier: Optional[ReadHrefModifier] = None) -> Item:
+def create_item(
+    map_href: str,
+    include_quality_asset: bool = False,
+    read_href_modifier: Optional[ReadHrefModifier] = None,
+) -> Item:
     """Create a STAC Item with a single Asset for a 3x3 degree COG tile of the
     ESA 10m WorldCover classification product.
 
@@ -35,15 +37,17 @@ def create_item(map_href: str,
     """
     map_metadata = Metadata(map_href, read_href_modifier)
 
-    item = Item(id=map_metadata.item_id,
-                geometry=map_metadata.geometry,
-                bbox=map_metadata.bbox,
-                datetime=None,
-                properties={
-                    "start_datetime": constants.START_TIME,
-                    "end_datetime": constants.END_TIME,
-                    "esa_worldcover:product_tile": map_metadata.tile
-                })
+    item = Item(
+        id=map_metadata.item_id,
+        geometry=map_metadata.geometry,
+        bbox=map_metadata.bbox,
+        datetime=None,
+        properties={
+            "start_datetime": constants.START_TIME,
+            "end_datetime": constants.END_TIME,
+            "esa_worldcover:product_tile": map_metadata.tile,
+        },
+    )
 
     item.common_metadata.description = constants.ITEM_DESCRIPTION
     item.common_metadata.created = datetime.now(tz=timezone.utc)
@@ -78,18 +82,17 @@ def create_collection(collection_id: str) -> Collection:
     Returns:
         Collection: The created STAC Collection.
     """
-    collection = Collection(id=collection_id,
-                            title=constants.COLLECTION_TITLE,
-                            description=constants.COLLECTION_DESCRIPTION,
-                            license=constants.LICENSE,
-                            keywords=constants.KEYWORDS,
-                            providers=constants.PROVIDERS,
-                            extent=constants.EXTENT,
-                            summaries=constants.SUMMARIES,
-                            extra_fields={
-                                "esa_worldcover:product_version":
-                                constants.PRODUCT_VERSION
-                            })
+    collection = Collection(
+        id=collection_id,
+        title=constants.COLLECTION_TITLE,
+        description=constants.COLLECTION_DESCRIPTION,
+        license=constants.LICENSE,
+        keywords=constants.KEYWORDS,
+        providers=constants.PROVIDERS,
+        extent=constants.EXTENT,
+        summaries=constants.SUMMARIES,
+        extra_fields={"esa_worldcover:product_version": constants.PRODUCT_VERSION},
+    )
 
     scientific = ScientificExtension.ext(collection, add_if_missing=True)
     scientific.doi = constants.DATA_DOI
@@ -101,8 +104,8 @@ def create_collection(collection_id: str) -> Collection:
     RasterExtension.add_to(collection)
     collection.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
-    collection.add_links([
-        constants.LICENSE_LINK, constants.USER_LINK, constants.VALIDATION_LINK
-    ])
+    collection.add_links(
+        [constants.LICENSE_LINK, constants.USER_LINK, constants.VALIDATION_LINK]
+    )
 
     return collection

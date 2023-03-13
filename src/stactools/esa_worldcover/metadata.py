@@ -2,20 +2,19 @@ import os
 from typing import Any, Dict, Optional
 
 import rasterio
-import shapely
 from pystac import Asset, MediaType
 from pystac.extensions.projection import AssetProjectionExtension
 from pystac.utils import make_absolute_href, str_to_datetime
+from shapely.geometry import box, mapping
 from stactools.core.io import ReadHrefModifier
 
 from stactools.esa_worldcover.constants import ASSET_PROPS
 
 
-class Metadata():
-
-    def __init__(self,
-                 href: str,
-                 read_href_modifier: Optional[ReadHrefModifier] = None):
+class Metadata:
+    def __init__(
+        self, href: str, read_href_modifier: Optional[ReadHrefModifier] = None
+    ):
         if read_href_modifier:
             modified_href = read_href_modifier(href)
         else:
@@ -40,11 +39,12 @@ class Metadata():
 
     @property
     def geometry(self) -> Dict[str, Any]:
-        return shapely.geometry.mapping(shapely.geometry.box(*self.bbox))
+        geometry_dict: Dict[str, Any] = mapping(box(*self.bbox))
+        return geometry_dict
 
     @property
     def tile(self) -> str:
-        return self.tags["product_tile"]
+        return str(self.tags["product_tile"])
 
     @property
     def asset(self) -> Asset:
@@ -56,16 +56,14 @@ class Metadata():
 
         extra_fields = {"raster:bands": ASSET_PROPS[self.type]["bands"]}
         if self.type == "map":
-            extra_fields["classification:classes"] = ASSET_PROPS[
-                self.type]["classes"]
+            extra_fields["classification:classes"] = ASSET_PROPS[self.type]["classes"]
         asset.extra_fields = extra_fields
 
         proj = AssetProjectionExtension.ext(asset)
         proj.transform = self.transform
         proj.shape = self.shape
 
-        asset.common_metadata.created = str_to_datetime(
-            self.tags["creation_time"])
+        asset.common_metadata.created = str_to_datetime(self.tags["creation_time"])
 
         return asset
 
