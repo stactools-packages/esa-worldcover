@@ -35,18 +35,18 @@ pip install stactools-esa-worldcover
 To create a STAC `Item`:
 
 ```shell
-stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006_Map.tif . --include-quality-asset
+stac esa-worldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006_Map.tif . --include-quality-asset
 ```
 
 To create a STAC `Collection` from a text file containing a list of WorldCover Map tile COG files:
 
 ```shell
-stac esaworldcover create-collection tests/data-files/file-list.txt examples --include-quality-assets
+stac esa-worldcover create-collection tests/data-files/file-list.txt examples --include-quality-assets
 ```
 
 The above `create-collection` command will create the contents of the `examples` directory.
 
-Use `stac esaworldcover --help` to see all subcommands and options.
+Use `stac esa-worldcover --help` to see all subcommands and options.
 
 ## Contributing
 

@@ -14,7 +14,7 @@ def create_esaworldcover_command(cli: Group) -> Command:
     """Creates the stactools-esa-worldcover command line utility."""
 
     @cli.group(
-        "esaworldcover",
+        "esa-worldcover",
         short_help=("Commands for working with ESA WorldCover"),
     )
     def esaworldcover() -> None:
