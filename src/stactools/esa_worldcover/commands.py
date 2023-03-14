@@ -15,7 +15,7 @@ def create_esaworldcover_command(cli: Group) -> Command:
 
     @cli.group(
         "esaworldcover",
-        short_help=("Commands for working with ESA 10m 2020 WorldCover"),
+        short_help=("Commands for working with ESA WorldCover"),
     )
     def esaworldcover() -> None:
         pass

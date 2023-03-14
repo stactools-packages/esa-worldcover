@@ -47,6 +47,18 @@ class Metadata:
         return str(self.tags["product_tile"])
 
     @property
+    def version(self) -> str:
+        return str(self.tags["product_version"][1:])
+
+    @property
+    def start_datetime(self) -> str:
+        return str(self.tags["time_start"])
+
+    @property
+    def end_datetime(self) -> str:
+        return str(self.tags["time_end"])
+
+    @property
     def asset(self) -> Asset:
         asset = Asset(href=make_absolute_href(self.href))
         asset.roles = ASSET_PROPS[self.type]["roles"]

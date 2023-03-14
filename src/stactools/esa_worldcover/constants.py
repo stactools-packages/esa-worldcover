@@ -1,6 +1,5 @@
 from typing import Any, Dict
 
-from dateutil.parser import parse
 from pystac import (
     Extent,
     Link,
@@ -12,8 +11,9 @@ from pystac import (
     TemporalExtent,
 )
 from pystac.extensions.item_assets import AssetDefinition
+from pystac.utils import str_to_datetime
 
-ITEM_DESCRIPTION = "ESA WorldCover product at 10m resolution for year 2020"
+ITEM_DESCRIPTION = "ESA WorldCover product at 10m resolution"
 # Per the discussion in https://github.com/radiantearth/stac-spec/issues/216,
 # the recommendation for multi-platform datasets is to include all platforms
 # and use a string separator. The same logic is applied to the mission.
@@ -21,8 +21,6 @@ PLATFORM = "sentinel-1a, sentinel-1b, sentinel-2a, sentinel-2b"
 MISSION = "sentinel-1, sentinel-2"
 INSTRUMENTS = ["c-sar", "msi"]
 EPSG = 4326
-START_TIME = "2020-01-01T00:00:00Z"
-END_TIME = "2020-12-31T23:59:59Z"
 CLASSIFICATION_SCHEMA = (
     "https://stac-extensions.github.io/classification/v1.0.0/schema.json"
 )
@@ -71,8 +69,7 @@ ASSET_PROPS: Dict[str, Any] = {
     "inputquality": {
         "title": "Classification Input Data Quality",
         "description": (
-            "Per pixel quality indicator showing the quality of the "
-            "electro-optical input data."
+            "Per pixel quality indicator showing the quality of the input data."
         ),
         "roles": ["metadata"],
         "bands": [
@@ -114,25 +111,28 @@ ASSET_PROPS: Dict[str, Any] = {
     },
 }
 
-COLLECTION_TITLE = "ESA WorldCover 2020"
+COLLECTION_TITLE = "ESA WorldCover"
 COLLECTION_DESCRIPTION = (
-    "Global land cover product at 10 meter resolution for 2020 based on "
+    "Global land cover product at 10 meter resolution based on "
     "Sentinel-1 and Sentinel-2 data"
 )
-PRODUCT_VERSION = "V1.0.0"
 LICENSE = "CC-BY-4.0"
 LICENSE_LINK = Link(
     rel="license",
     target="https://spdx.org/licenses/CC-BY-4.0.html",
     title="Creative Commons Attribution 4.0 International License",
 )
-DATA_DOI = "10.5281/zenodo.5571936"
-DATA_CITATION = (
-    "Zanaga, D., Van De Kerchove, R., De Keersmaecker, W., Souverijns, N., "
-    "Brockmann, C., Quast, R., Wevers, J., Grosu, A., Paccini, A., Vergnaud, "
-    "S., Cartus, O., Santoro, M., Fritz, S., Georgieva, I., Lesiv, M., Carter, "
-    "S., Herold, M., Li, Linlin, Tsendbazar, N.E., Ramoino, F., Arino, O., "
-    "2021. ESA WorldCover 10m 2020 v100. https://doi.org/10.5281/zenodo.5571936"
+CITE_AS_LINK_2020 = Link(
+    rel="cite-as",
+    target="https://doi.org/10.5281/zenodo.5571936 ",
+    media_type=MediaType.HTML,
+    title="2020 Data DOI",
+)
+CITE_AS_LINK_2021 = Link(
+    rel="cite-as",
+    target="https://doi.org/10.5281/zenodo.7254221",
+    media_type=MediaType.HTML,
+    title="2021 Data DOI",
 )
 KEYWORDS = ["Global", "Land Cover", "Sentinel", "ESA"]
 PROVIDERS = [
@@ -150,18 +150,26 @@ PROVIDERS = [
             "University"
         ),
         roles=[ProviderRole.PROCESSOR],
-        url="https://worldcover2020.esa.int/",
+        url="https://esa-worldcover.org/en",
     ),
 ]
 EXTENT = Extent(
     SpatialExtent([[-180.0, -60.0, 180.0, 82.75]]),
-    TemporalExtent([[parse(START_TIME), parse(END_TIME)]]),
+    TemporalExtent(
+        [
+            [
+                str_to_datetime("2020-01-01T00:00:00Z"),
+                str_to_datetime("2021-12-31T23:59:59Z"),
+            ]
+        ]
+    ),
 )
 SUMMARIES = Summaries(
     {
         "platform": PLATFORM.split(", "),
         "instruments": INSTRUMENTS,
         "mission": MISSION.split(", "),
+        "esa_worldcover:product_version": ["1.0.0", "2.0.0"],
     }
 )
 ITEM_ASSETS = {
@@ -185,13 +193,27 @@ ITEM_ASSETS = {
         }
     ),
 }
-USER_LINK = Link(
-    rel="manual",
+USER_MANUAL_2020_LINK = Link(
+    rel="about",
     target="https://esa-worldcover.s3.amazonaws.com/v100/2020/docs/WorldCover_PUM_V1.0.pdf",  # noqa
-    title="Product User Manual",
+    media_type=MediaType.PDF,
+    title="2020 Product Version 1.0.0 User Manual",
 )
-VALIDATION_LINK = Link(
-    rel="validation",
+USER_MANUAL_2021_LINK = Link(
+    rel="about",
+    target="https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/docs/WorldCover_PUM_V2.0.pdf",  # noqa
+    media_type=MediaType.PDF,
+    title="2021 Product Version 2.0.0 User Manual",
+)
+VALIDATION_2020_LINK = Link(
+    rel="about",
     target="https://worldcover2020.esa.int/data/docs/WorldCover_PVR_V1.1.pdf",
-    title="Product Validation Report",
+    media_type=MediaType.PDF,
+    title="2020 Product Version 1.0.0 Validation Report",
+)
+VALIDATION_2021_LINK = Link(
+    rel="about",
+    target="https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/docs/WorldCover_PVR_V2.0.pdf",  # noqa
+    media_type=MediaType.PDF,
+    title="2021 Product Version 2.0.0 Validation Report",
 )

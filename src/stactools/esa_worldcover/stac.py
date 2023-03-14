@@ -6,7 +6,6 @@ from pystac import Collection, Item
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ItemProjectionExtension
 from pystac.extensions.raster import RasterExtension
-from pystac.extensions.scientific import ScientificExtension
 from stactools.core.io import ReadHrefModifier
 
 from stactools.esa_worldcover import constants
@@ -44,8 +43,9 @@ def create_item(
         bbox=map_metadata.bbox,
         datetime=None,
         properties={
-            "start_datetime": constants.START_TIME,
-            "end_datetime": constants.END_TIME,
+            "start_datetime": map_metadata.start_datetime,
+            "end_datetime": map_metadata.end_datetime,
+            "esa_worldcover:product_version": map_metadata.version,
             "esa_worldcover:product_tile": map_metadata.tile,
         },
     )
@@ -80,8 +80,8 @@ def create_item(
 def create_collection(
     collection_id: str, include_quality_asset: bool = False
 ) -> Collection:
-    """Creates a STAC Collection for the 2020 ESA 10m WorldCover classification
-    product.
+    """Creates a STAC Collection for the ESA WorldCover classification
+    product for years 2020-2021 (product versions 1.0.0 and 2.0.0).
 
     Args:
         collection_id (str): Desired ID for the STAC Collection.
@@ -100,15 +100,10 @@ def create_collection(
         providers=constants.PROVIDERS,
         extent=constants.EXTENT,
         summaries=constants.SUMMARIES,
-        extra_fields={"esa_worldcover:product_version": constants.PRODUCT_VERSION},
     )
 
-    scientific = ScientificExtension.ext(collection, add_if_missing=True)
-    scientific.doi = constants.DATA_DOI
-    scientific.citation = constants.DATA_CITATION
-
     item_assets_ext = ItemAssetsExtension.ext(collection, add_if_missing=True)
-    item_assets = constants.ITEM_ASSETS
+    item_assets = constants.ITEM_ASSETS.copy()
     if not include_quality_asset:
         item_assets.pop("input_quality")
     item_assets_ext.item_assets = item_assets
@@ -117,7 +112,15 @@ def create_collection(
     collection.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
     collection.add_links(
-        [constants.LICENSE_LINK, constants.USER_LINK, constants.VALIDATION_LINK]
+        [
+            constants.LICENSE_LINK,
+            constants.CITE_AS_LINK_2020,
+            constants.CITE_AS_LINK_2021,
+            constants.USER_MANUAL_2020_LINK,
+            constants.USER_MANUAL_2021_LINK,
+            constants.VALIDATION_2020_LINK,
+            constants.VALIDATION_2021_LINK,
+        ]
     )
 
     return collection

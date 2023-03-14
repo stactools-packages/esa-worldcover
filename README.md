@@ -17,12 +17,12 @@
   - `esa_worldcover:product_tile`: The lat/lon coordinates of the tile southwest corner
   - `esa_worldcover:product_version`: The version of the classification product
 
-Generate STAC Items and Collections for [ESA's 10m resolution global land cover product](https://esa-worldcover.org/en) for the year 2020 based on Sentinel-1 and Sentinel-2 data.
+Generate STAC Items and Collections for the [ESA WorldCover](https://esa-worldcover.org/en) 10m resolution global land cover product based on Sentinel-1 and Sentinel-2 data.
 
 ### STAC Examples
 
 - [Collection](examples/collection.json)
-- [Item](examples/ESA_WorldCover_10m_2020_v100_N66E177/ESA_WorldCover_10m_2020_v100_N66E177.json)
+- [Item](examples/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006.json)
 
 ## Installation
 
@@ -35,7 +35,7 @@ pip install stactools-esa-worldcover
 To create a STAC `Item`:
 
 ```shell
-stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif . --include-quality-asset
+stac esaworldcover create-item tests/data-files/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006_Map.tif . --include-quality-asset
 ```
 
 To create a STAC `Collection` from a text file containing a list of WorldCover Map tile COG files:
