@@ -6,8 +6,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
-Nothing.
+### Added
 
+- Support for the 2021 product (version 2.0.0) ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+- `create_examples.py` script ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+
+### Removed
+
+- `scientific` extension from Collection ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+
+### Changed
+
+- Command name now matches the package name (`esa-worldcover`) ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+
+### Fixed
+
+- Single asset Items now place all `projection` extension fields in Item properties rather than on the asset ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
 
 ## [0.1.0] - 2022-04-27
 
