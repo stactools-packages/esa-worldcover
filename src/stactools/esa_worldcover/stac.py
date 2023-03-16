@@ -42,9 +42,9 @@ def create_item(
         geometry=map_metadata.geometry,
         bbox=map_metadata.bbox,
         datetime=None,
+        start_datetime=map_metadata.start_datetime,
+        end_datetime=map_metadata.end_datetime,
         properties={
-            "start_datetime": map_metadata.start_datetime,
-            "end_datetime": map_metadata.end_datetime,
             "esa_worldcover:product_version": map_metadata.version,
             "esa_worldcover:product_tile": map_metadata.tile,
         },
