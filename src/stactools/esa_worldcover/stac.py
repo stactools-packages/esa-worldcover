@@ -3,11 +3,12 @@ from datetime import datetime, timezone
 from typing import Optional
 
 from pystac import Collection, Item
+from pystac.extensions.grid import GridExtension
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ItemProjectionExtension
 from pystac.extensions.raster import RasterExtension
-from pystac.extensions.grid import GridExtension
 from stactools.core.io import ReadHrefModifier
+from stactools.core.utils.raster_footprint import RasterFootprint
 
 from stactools.esa_worldcover import constants
 from stactools.esa_worldcover.metadata import Metadata
@@ -19,6 +20,7 @@ def create_item(
     map_href: str,
     include_quality_asset: bool = False,
     read_href_modifier: Optional[ReadHrefModifier] = None,
+    raster_footprint: bool = False,
 ) -> Item:
     """Create a STAC Item with a single Asset for a 3x3 degree COG tile of the
     ESA 10m WorldCover classification product.
@@ -32,6 +34,8 @@ def create_item(
             an input quality COG to exist alongside the map COG.
         read_href_modifier (Callable[[str], str]): An optional function to
             modify the MTL and USGS STAC hrefs (e.g. to add a token to a url).
+        raster_footprint (bool): Flag to use the footprint of valid (not nodata)
+            raster data for the Item geometry. Default is False.
 
     Returns:
         Item: STAC Item object representing the worldcover tile
@@ -75,6 +79,14 @@ def create_item(
 
     RasterExtension.add_to(item)
     item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
+
+    if raster_footprint:
+        item.geometry = RasterFootprint.from_href(
+            map_href,
+            densification_distance=0.001,  # roughly 100 meters (10 pixels)
+            simplify_tolerance=0.0001,  # roughly 10 meters (1 pixel)
+            no_data=0,
+        ).footprint()
 
     item.validate()
 

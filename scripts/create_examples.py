@@ -25,6 +25,7 @@ with TemporaryDirectory() as tmp_dir:
         item = stac.create_item(
             str(data_files / file),
             include_quality_asset=True,
+            raster_footprint=True,
         )
         item.properties.pop("created")
         collection.add_item(item)
