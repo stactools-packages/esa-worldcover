@@ -6,6 +6,7 @@ from pystac import Collection, Item
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ItemProjectionExtension
 from pystac.extensions.raster import RasterExtension
+from pystac.extensions.grid import GridExtension
 from stactools.core.io import ReadHrefModifier
 
 from stactools.esa_worldcover import constants
@@ -68,6 +69,9 @@ def create_item(
     else:
         item_proj.shape = item.assets["map"].extra_fields.pop("proj:shape")
         item_proj.transform = item.assets["map"].extra_fields.pop("proj:transform")
+
+    grid = GridExtension.ext(item, add_if_missing=True)
+    grid.code = f"ESAWORLDCOVER-{map_metadata.tile}"
 
     RasterExtension.add_to(item)
     item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
