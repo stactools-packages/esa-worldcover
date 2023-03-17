@@ -3,10 +3,10 @@
   "stac_version": "1.0.0",
   "id": "ESA_WorldCover_10m_2021_v200_N00E006",
   "properties": {
-    "start_datetime": "2021-01-01T00:00:00Z",
-    "end_datetime": "2021-12-31T23:59:59Z",
     "esa_worldcover:product_version": "2.0.0",
     "esa_worldcover:product_tile": "N00E006",
+    "start_datetime": "2021-01-01T00:00:00Z",
+    "end_datetime": "2021-12-31T23:59:59Z",
     "description": "ESA WorldCover product at 10m resolution",
     "mission": "sentinel-1, sentinel-2",
     "platform": "sentinel-1a, sentinel-1b, sentinel-2a, sentinel-2b",

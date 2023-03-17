@@ -120,6 +120,7 @@ LICENSE = "CC-BY-4.0"
 LICENSE_LINK = Link(
     rel="license",
     target="https://spdx.org/licenses/CC-BY-4.0.html",
+    media_type=MediaType.HTML,
     title="Creative Commons Attribution 4.0 International License",
 )
 CITE_AS_LINK_2020 = Link(
