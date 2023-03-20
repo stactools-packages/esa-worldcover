@@ -140,7 +140,7 @@ PROVIDERS = [
     Provider(
         name="ESA",
         roles=[ProviderRole.LICENSOR, ProviderRole.PRODUCER, ProviderRole.HOST],
-        url="https://esa-worldcover.org/en",
+        url="https://esa-worldcover.org",
     ),
     Provider(
         name="ESA WorldCover Consortium",

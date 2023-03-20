@@ -32,7 +32,8 @@ with TemporaryDirectory() as tmp_dir:
 
     print("Saving collection...")
     collection.normalize_hrefs(str(examples))
-    shutil.rmtree(examples)
+    if examples.exists():
+        shutil.rmtree(examples)
     for item in collection.get_all_items():
         item.make_asset_hrefs_relative()
     collection.save(catalog_type=CatalogType.SELF_CONTAINED)

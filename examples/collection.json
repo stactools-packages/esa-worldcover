@@ -215,7 +215,7 @@
         "producer",
         "host"
       ],
-      "url": "https://esa-worldcover.org/en"
+      "url": "https://esa-worldcover.org"
     },
     {
       "name": "ESA WorldCover Consortium",
@@ -223,7 +223,7 @@
       "roles": [
         "processor"
       ],
-      "url": "https://esa-worldcover.org/en"
+      "url": "https://esa-worldcover.org"
     }
   ],
   "summaries": {
