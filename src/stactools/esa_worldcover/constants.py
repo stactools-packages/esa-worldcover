@@ -151,7 +151,7 @@ PROVIDERS = [
             "University"
         ),
         roles=[ProviderRole.PROCESSOR],
-        url="https://esa-worldcover.org/en",
+        url="https://esa-worldcover.org",
     ),
 ]
 EXTENT = Extent(
