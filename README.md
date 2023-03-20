@@ -19,7 +19,7 @@
 
 Generate STAC Items and Collections for the [ESA WorldCover](https://esa-worldcover.org/en) 10m resolution global land cover product based on Sentinel-1 and Sentinel-2 data.
 
-### STAC Examples
+## STAC Examples
 
 - [Collection](examples/collection.json)
 - [Item](examples/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006.json)
