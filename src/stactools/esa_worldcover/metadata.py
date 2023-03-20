@@ -21,7 +21,7 @@ class Metadata:
         else:
             modified_href = href
         with rasterio.open(modified_href) as dataset:
-            self.bbox = dataset.bounds
+            self.bbox = list(dataset.bounds)
             self.transform = list(dataset.transform)[0:6]
             self.shape = dataset.shape
             self.tags = dataset.tags()
