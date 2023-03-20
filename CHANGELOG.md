@@ -10,10 +10,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Support for the 2021 product (version 2.0.0) ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
 - `create_examples.py` script ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+- DOI, User Manual, and Validation links for 2020 and 2021 to the Collection ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+- Grid extension ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+- Option to use the Map data raster footprint for the Item geometry ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
 
 ### Removed
 
 - `scientific` extension from Collection ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
+- Verbiage specific to the 2020 product year and v1.0.0 version ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
 
 ### Changed
 
