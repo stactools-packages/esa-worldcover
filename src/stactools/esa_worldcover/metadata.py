@@ -1,4 +1,5 @@
 import os
+from datetime import datetime
 from typing import Any, Dict, Optional
 
 import rasterio
@@ -45,6 +46,18 @@ class Metadata:
     @property
     def tile(self) -> str:
         return str(self.tags["product_tile"])
+
+    @property
+    def version(self) -> str:
+        return str(self.tags["product_version"][1:])
+
+    @property
+    def start_datetime(self) -> datetime:
+        return str_to_datetime(self.tags["time_start"])
+
+    @property
+    def end_datetime(self) -> datetime:
+        return str_to_datetime(self.tags["time_end"])
 
     @property
     def asset(self) -> Asset:

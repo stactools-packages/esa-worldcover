@@ -1,13 +1,13 @@
 {
   "type": "Feature",
   "stac_version": "1.0.0",
-  "id": "ESA_WorldCover_10m_2020_v100_N66E177",
+  "id": "ESA_WorldCover_10m_2021_v200_N00E006",
   "properties": {
-    "start_datetime": "2020-01-01T00:00:00Z",
-    "end_datetime": "2020-12-31T23:59:59Z",
-    "esa_worldcover:product_tile": "N66E177",
-    "description": "ESA WorldCover product at 10m resolution for year 2020",
-    "created": "2022-04-15T01:21:27.140785Z",
+    "esa_worldcover:product_version": "2.0.0",
+    "esa_worldcover:product_tile": "N00E006",
+    "start_datetime": "2021-01-01T00:00:00Z",
+    "end_datetime": "2021-12-31T23:59:59Z",
+    "description": "ESA WorldCover product at 10m resolution",
     "mission": "sentinel-1, sentinel-2",
     "platform": "sentinel-1a, sentinel-1b, sentinel-2a, sentinel-2b",
     "instruments": [
@@ -15,6 +15,7 @@
       "msi"
     ],
     "proj:epsg": 4326,
+    "grid:code": "ESAWORLDCOVER-N00E006",
     "datetime": null
   },
   "geometry": {
@@ -22,24 +23,84 @@
     "coordinates": [
       [
         [
-          180.0,
-          66.0
+          6.2188333,
+          0.0
         ],
         [
-          180.0,
-          69.0
+          6.1671797,
+          0.1651087
         ],
         [
-          177.0,
-          69.0
+          6.1670314,
+          0.166092
         ],
         [
-          177.0,
-          66.0
+          6.1649167,
+          0.2660681
         ],
         [
-          180.0,
-          66.0
+          6.1809298,
+          0.3454691
+        ],
+        [
+          6.1831926,
+          0.3531421
+        ],
+        [
+          6.1836079,
+          0.3540492
+        ],
+        [
+          6.2178777,
+          0.4207619
+        ],
+        [
+          6.2414569,
+          0.4614181
+        ],
+        [
+          7.1037988,
+          1.8115183
+        ],
+        [
+          7.1473468,
+          1.8762296
+        ],
+        [
+          7.1599256,
+          1.8904676
+        ],
+        [
+          8.3295612,
+          2.9997419
+        ],
+        [
+          8.3304583,
+          3.0
+        ],
+        [
+          8.9104583,
+          3.0
+        ],
+        [
+          8.9999774,
+          0.2905188
+        ],
+        [
+          9.0,
+          0.2775191
+        ],
+        [
+          8.9997712,
+          0.2767192
+        ],
+        [
+          6.9453258,
+          0.0
+        ],
+        [
+          6.2188333,
+          0.0
         ]
       ]
     ]
@@ -49,24 +110,24 @@
       "rel": "root",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "ESA WorldCover 2020"
+      "title": "ESA WorldCover"
     },
     {
       "rel": "collection",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "ESA WorldCover 2020"
+      "title": "ESA WorldCover"
     },
     {
       "rel": "parent",
       "href": "../collection.json",
       "type": "application/json",
-      "title": "ESA WorldCover 2020"
+      "title": "ESA WorldCover"
     }
   ],
   "assets": {
     "map": {
-      "href": "../../tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_Map.tif",
+      "href": "../../tests/data-files/ESA_WorldCover_10m_2021_v200_N00E006/ESA_WorldCover_10m_2021_v200_N00E006_Map.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Land Cover Classes",
       "description": "Discrete classification according to the Land Cover Classification System scheme developed by the United Nations Food and Agriculture Organization",
@@ -138,27 +199,27 @@
         }
       ],
       "proj:transform": [
-        0.0029296875,
+        8.333333333333333e-05,
         0.0,
-        177.0,
+        6.0,
         0.0,
-        -0.0029296875,
-        69.0
+        -8.333333333333333e-05,
+        3.0
       ],
       "proj:shape": [
-        1024,
-        1024
+        36000,
+        36000
       ],
-      "created": "2021-10-12T16:51:26.705020Z",
+      "created": "2022-10-21T07:35:40.236136Z",
       "roles": [
         "data"
       ]
     },
     "input_quality": {
-      "href": "../../tests/data-files/ESA_WorldCover_10m_2020_v100_N66E177_Map/ESA_WorldCover_10m_2020_v100_N66E177_InputQuality.tif",
+      "href": "../../tests/data-files/ESA_WorldCover_10m_2021_v200_N00E006/ESA_WorldCover_10m_2021_v200_N00E006_InputQuality.tif",
       "type": "image/tiff; application=geotiff; profile=cloud-optimized",
       "title": "Classification Input Data Quality",
-      "description": "Per pixel quality indicator showing the quality of the electro-optical input data.",
+      "description": "Per pixel quality indicator showing the quality of the input data.",
       "raster:bands": [
         {
           "name": "Band1",
@@ -186,32 +247,33 @@
         }
       ],
       "proj:transform": [
-        0.005859375,
+        0.0005,
         0.0,
-        177.0,
+        6.0,
         0.0,
-        -0.005859375,
-        69.0
+        -0.0005,
+        3.0
       ],
       "proj:shape": [
-        512,
-        512
+        6000,
+        6000
       ],
-      "created": "2021-10-14T21:13:32.209529Z",
+      "created": "2022-08-03T16:43:52.733279Z",
       "roles": [
         "metadata"
       ]
     }
   },
   "bbox": [
-    177.0,
-    66.0,
-    180.0,
-    69.0
+    6.0,
+    0.0,
+    9.0,
+    3.0
   ],
   "stac_extensions": [
-    "https://stac-extensions.github.io/projection/v1.0.0/schema.json",
-    "https://stac-extensions.github.io/raster/v1.0.0/schema.json",
+    "https://stac-extensions.github.io/projection/v1.1.0/schema.json",
+    "https://stac-extensions.github.io/grid/v1.1.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json",
     "https://stac-extensions.github.io/classification/v1.0.0/schema.json"
   ],
   "collection": "esa-worldcover"

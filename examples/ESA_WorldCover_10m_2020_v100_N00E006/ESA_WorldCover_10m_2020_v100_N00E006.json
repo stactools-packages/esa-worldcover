@@ -1,0 +1,280 @@
+{
+  "type": "Feature",
+  "stac_version": "1.0.0",
+  "id": "ESA_WorldCover_10m_2020_v100_N00E006",
+  "properties": {
+    "esa_worldcover:product_version": "1.0.0",
+    "esa_worldcover:product_tile": "N00E006",
+    "start_datetime": "2020-01-01T00:00:00Z",
+    "end_datetime": "2020-12-31T23:59:59Z",
+    "description": "ESA WorldCover product at 10m resolution",
+    "mission": "sentinel-1, sentinel-2",
+    "platform": "sentinel-1a, sentinel-1b, sentinel-2a, sentinel-2b",
+    "instruments": [
+      "c-sar",
+      "msi"
+    ],
+    "proj:epsg": 4326,
+    "grid:code": "ESAWORLDCOVER-N00E006",
+    "datetime": null
+  },
+  "geometry": {
+    "type": "Polygon",
+    "coordinates": [
+      [
+        [
+          6.2188333,
+          0.0
+        ],
+        [
+          6.1671797,
+          0.1651087
+        ],
+        [
+          6.1670314,
+          0.166092
+        ],
+        [
+          6.1649167,
+          0.2660681
+        ],
+        [
+          6.1809298,
+          0.3454691
+        ],
+        [
+          6.1831926,
+          0.3531421
+        ],
+        [
+          6.1836079,
+          0.3540492
+        ],
+        [
+          6.2178777,
+          0.4207619
+        ],
+        [
+          6.2414569,
+          0.4614181
+        ],
+        [
+          7.1037988,
+          1.8115183
+        ],
+        [
+          7.1473468,
+          1.8762296
+        ],
+        [
+          7.1599256,
+          1.8904676
+        ],
+        [
+          8.3295612,
+          2.9997419
+        ],
+        [
+          8.3304583,
+          3.0
+        ],
+        [
+          8.9104583,
+          3.0
+        ],
+        [
+          8.9999774,
+          0.2905188
+        ],
+        [
+          9.0,
+          0.2775191
+        ],
+        [
+          8.9997712,
+          0.2767192
+        ],
+        [
+          6.9453258,
+          0.0
+        ],
+        [
+          6.2188333,
+          0.0
+        ]
+      ]
+    ]
+  },
+  "links": [
+    {
+      "rel": "root",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "ESA WorldCover"
+    },
+    {
+      "rel": "collection",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "ESA WorldCover"
+    },
+    {
+      "rel": "parent",
+      "href": "../collection.json",
+      "type": "application/json",
+      "title": "ESA WorldCover"
+    }
+  ],
+  "assets": {
+    "map": {
+      "href": "../../tests/data-files/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006_Map.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Land Cover Classes",
+      "description": "Discrete classification according to the Land Cover Classification System scheme developed by the United Nations Food and Agriculture Organization",
+      "raster:bands": [
+        {
+          "name": "Band1",
+          "description": "Classification values",
+          "nodata": 0,
+          "sampling": "area",
+          "data_type": "uint8",
+          "spatial_resolution": 10
+        }
+      ],
+      "classification:classes": [
+        {
+          "value": 10,
+          "description": "Tree cover",
+          "color-hint": "006400"
+        },
+        {
+          "value": 20,
+          "description": "Shrubland",
+          "color-hint": "FFBB22"
+        },
+        {
+          "value": 30,
+          "description": "Grassland",
+          "color-hint": "FFFF4C"
+        },
+        {
+          "value": 40,
+          "description": "Cropland",
+          "color-hint": "F096FF"
+        },
+        {
+          "value": 50,
+          "description": "Built-up",
+          "color-hint": "FA0000"
+        },
+        {
+          "value": 60,
+          "description": "Bare / sparse vegetation",
+          "color-hint": "B4B4B4"
+        },
+        {
+          "value": 70,
+          "description": "Snow and ice",
+          "color-hint": "F0F0F0"
+        },
+        {
+          "value": 80,
+          "description": "Permanent water bodies",
+          "color-hint": "0064C8"
+        },
+        {
+          "value": 90,
+          "description": "Herbaceous wetland",
+          "color-hint": "0096A0"
+        },
+        {
+          "value": 95,
+          "description": "Mangroves",
+          "color-hint": "00CF75"
+        },
+        {
+          "value": 100,
+          "description": "Moss and lichen",
+          "color-hint": "FAE6A0"
+        }
+      ],
+      "proj:transform": [
+        8.333333333333333e-05,
+        0.0,
+        6.0,
+        0.0,
+        -8.333333333333333e-05,
+        3.0
+      ],
+      "proj:shape": [
+        36000,
+        36000
+      ],
+      "created": "2021-10-12T16:51:26.705020Z",
+      "roles": [
+        "data"
+      ]
+    },
+    "input_quality": {
+      "href": "../../tests/data-files/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006_InputQuality.tif",
+      "type": "image/tiff; application=geotiff; profile=cloud-optimized",
+      "title": "Classification Input Data Quality",
+      "description": "Per pixel quality indicator showing the quality of the input data.",
+      "raster:bands": [
+        {
+          "name": "Band1",
+          "description": "Number of Sentinel-1 GAMMA0 observations used in the classification workflow",
+          "nodata": -1,
+          "sampling": "area",
+          "data_type": "int16",
+          "spatial_resolution": 60
+        },
+        {
+          "name": "Band2",
+          "description": "Number of Sentinel-2 L2A observations used in the classification workflow",
+          "nodata": -1,
+          "sampling": "area",
+          "data_type": "int16",
+          "spatial_resolution": 60
+        },
+        {
+          "name": "Band3",
+          "description": "Percentage (0-100) of invalid S2 observations discarded in the classification workflow (after cloud and cloud shadow filtering)",
+          "nodata": -1,
+          "sampling": "area",
+          "data_type": "int16",
+          "spatial_resolution": 60
+        }
+      ],
+      "proj:transform": [
+        0.0005,
+        0.0,
+        6.0,
+        0.0,
+        -0.0005,
+        3.0
+      ],
+      "proj:shape": [
+        6000,
+        6000
+      ],
+      "created": "2021-10-14T21:13:32.209529Z",
+      "roles": [
+        "metadata"
+      ]
+    }
+  },
+  "bbox": [
+    6.0,
+    0.0,
+    9.0,
+    3.0
+  ],
+  "stac_extensions": [
+    "https://stac-extensions.github.io/projection/v1.1.0/schema.json",
+    "https://stac-extensions.github.io/grid/v1.1.0/schema.json",
+    "https://stac-extensions.github.io/raster/v1.1.0/schema.json",
+    "https://stac-extensions.github.io/classification/v1.0.0/schema.json"
+  ],
+  "collection": "esa-worldcover"
+}

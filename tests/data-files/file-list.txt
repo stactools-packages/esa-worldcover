@@ -1,0 +1,2 @@
+tests/data-files/ESA_WorldCover_10m_2020_v100_N00E006/ESA_WorldCover_10m_2020_v100_N00E006_Map.tif
+tests/data-files/ESA_WorldCover_10m_2021_v200_N00E006/ESA_WorldCover_10m_2021_v200_N00E006_Map.tif

@@ -14,8 +14,8 @@ def create_esaworldcover_command(cli: Group) -> Command:
     """Creates the stactools-esa-worldcover command line utility."""
 
     @cli.group(
-        "esaworldcover",
-        short_help=("Commands for working with ESA 10m 2020 WorldCover"),
+        "esa-worldcover",
+        short_help=("Commands for working with ESA WorldCover"),
     )
     def esaworldcover() -> None:
         pass
@@ -39,8 +39,19 @@ def create_esaworldcover_command(cli: Group) -> Command:
         is_flag=True,
         help="include input quality raster Assets in Items",
     )
+    @click.option(
+        "-r",
+        "--raster-footprint",
+        default=False,
+        show_default=True,
+        help="use footprint of valid raster data for Item geometry",
+    )
     def create_collection_command(
-        infile: str, outdir: str, id: str, include_quality_assets: bool
+        infile: str,
+        outdir: str,
+        id: str,
+        include_quality_assets: bool,
+        raster_footprint: bool,
     ) -> None:
         """Creates a STAC Collection for Items defined by the hrefs in INFILE."
 
@@ -53,6 +64,9 @@ def create_esaworldcover_command(cli: Group) -> Command:
             quality_assets (bool): Flag to include input quality Assets in the
                 collection Items. Requires input quality COGs to exist alongside
                 the corresponding map COG hrefs listed in INFILE.
+            raster_footprint (bool): Flag to use the footprint of valid (not
+                nodata) raster data for the Item geometry. Default is False.
+
         """
         with open(infile) as file:
             hrefs = [line.strip() for line in file.readlines()]
@@ -61,7 +75,11 @@ def create_esaworldcover_command(cli: Group) -> Command:
         collection.set_self_href(os.path.join(outdir, "collection.json"))
         collection.catalog_type = CatalogType.SELF_CONTAINED
         for href in hrefs:
-            item = stac.create_item(href, include_quality_asset=include_quality_assets)
+            item = stac.create_item(
+                href,
+                include_quality_asset=include_quality_assets,
+                raster_footprint=raster_footprint,
+            )
             collection.add_item(item)
         collection.make_all_asset_hrefs_relative()
         collection.validate_all()
@@ -79,8 +97,18 @@ def create_esaworldcover_command(cli: Group) -> Command:
         is_flag=True,
         help="include input quality raster Asset in Item",
     )
+    @click.option(
+        "-r",
+        "--raster-footprint",
+        default=False,
+        show_default=True,
+        help="use footprint of valid raster data for Item geometry",
+    )
     def create_item_command(
-        infile: str, outdir: str, include_quality_asset: bool
+        infile: str,
+        outdir: str,
+        include_quality_asset: bool,
+        raster_footprint: bool,
     ) -> None:
         """Creates a STAC Item for a 3x3 degree tile of the ESA 10m WorldCover
         classification product.
@@ -91,8 +119,15 @@ def create_esaworldcover_command(cli: Group) -> Command:
             outdir (str): Directory that will contain the STAC Item.
             quality_asset (bool): Flag to include an input quality asset.
                 Requires an input quality COG to exist alongside the map COG.
+            raster_footprint (bool): Flag to use the footprint of valid (not
+                nodata) raster data for the Item geometry. Default is False.
+
         """
-        item = stac.create_item(infile, include_quality_asset=include_quality_asset)
+        item = stac.create_item(
+            infile,
+            include_quality_asset=include_quality_asset,
+            raster_footprint=raster_footprint,
+        )
         item_path = os.path.join(outdir, f"{item.id}.json")
         item.set_self_href(item_path)
         item.make_asset_hrefs_relative()
