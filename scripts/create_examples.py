@@ -29,6 +29,7 @@ with TemporaryDirectory() as tmp_dir:
         )
         item.properties.pop("created")
         collection.add_item(item)
+    collection.update_extent_from_items()
 
     print("Saving collection...")
     collection.normalize_hrefs(str(examples))

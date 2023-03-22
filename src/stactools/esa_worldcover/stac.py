@@ -7,6 +7,7 @@ from pystac.extensions.grid import GridExtension
 from pystac.extensions.item_assets import ItemAssetsExtension
 from pystac.extensions.projection import ItemProjectionExtension
 from pystac.extensions.raster import RasterExtension
+from shapely.geometry import shape
 from stactools.core.io import ReadHrefModifier
 from stactools.core.utils.raster_footprint import RasterFootprint
 
@@ -87,6 +88,7 @@ def create_item(
             simplify_tolerance=0.0001,  # roughly 10 meters (1 pixel)
             no_data=0,
         ).footprint()
+        item.bbox = list(shape(item.geometry).bounds)
 
     item.validate()
 
