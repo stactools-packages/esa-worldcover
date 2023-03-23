@@ -2,6 +2,7 @@ import logging
 from datetime import datetime, timezone
 from typing import Optional
 
+import rasterio
 from pystac import Collection, Item
 from pystac.extensions.grid import GridExtension
 from pystac.extensions.item_assets import ItemAssetsExtension
@@ -9,10 +10,9 @@ from pystac.extensions.projection import ItemProjectionExtension
 from pystac.extensions.raster import RasterExtension
 from shapely.geometry import shape
 from stactools.core.io import ReadHrefModifier
-from stactools.core.utils.raster_footprint import RasterFootprint
 
 from stactools.esa_worldcover import constants
-from stactools.esa_worldcover.metadata import Metadata
+from stactools.esa_worldcover.metadata import ESAWorldCoverFootprint, Metadata
 
 logger = logging.getLogger(__name__)
 
@@ -82,13 +82,16 @@ def create_item(
     item.stac_extensions.append(constants.CLASSIFICATION_SCHEMA)
 
     if raster_footprint:
-        item.geometry = RasterFootprint.from_href(
-            map_href,
-            densification_distance=0.001,  # roughly 100 meters (10 pixels)
-            simplify_tolerance=0.0001,  # roughly 10 meters (1 pixel)
-            no_data=0,
-        ).footprint()
-        item.bbox = list(shape(item.geometry).bounds)
+        with rasterio.open(map_href) as src:
+            footprint = ESAWorldCoverFootprint(
+                data_array=src.read_masks(1),
+                crs=src.crs,
+                transform=src.transform,
+                densification_distance=0.001,  # roughly 100 meters (10 pixels)
+                simplify_tolerance=0.0001,  # roughly 10 meters (1 pixel)
+            ).footprint()
+        item.geometry = footprint
+        item.bbox = list(shape(footprint).bounds)
 
     item.validate()
 
