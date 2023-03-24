@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [0.2.0] - 2023-03-24
+
 ### Added
 
 - Support for the 2021 product (version 2.0.0) ([#10](https://github.com/stactools-packages/esa-worldcover/pull/10))
@@ -31,5 +33,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 Initial release.
 
-[Unreleased]: <https://github.com/stactools-packages/esa-worldcover/compare/v0.1.0..main>
+[Unreleased]: <https://github.com/stactools-packages/esa-worldcover/compare/v0.2.0..main>
+[0.2.0]: <https://github.com/stactools-packages/esa-worldcover/compare/v0.1.0..v0.2.0>
 [0.1.0]: <https://github.com/stactools-packages/esa-worldcover/releases/tag/v0.1.0>
